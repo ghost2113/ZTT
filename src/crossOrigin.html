@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>跨域</title>
+
+	</head>
+
+	<body>
+	</body>
+	<script type="text/javascript" src="static/fastclick.js"></script>
+	<script type="text/javascript" src="static/common.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/zepto/1.2.0/zepto.min.js"></script>
+	<script>
+		$.ajax({
+			url: "/
+			zaotoutiao-api-home-1.0.0/unread/msg/num/get",
+			type: 'GET',
+			dataType: 'json',
+			data: {
+				userId: 779,
+				random: Math.random()
+			},
+			async: true,
+			success: function(data) {
+				var res = data.data;
+			}
+		})
+	</script>
+
+</html>

@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>新闻</title>
+    <link rel="stylesheet" href="./css/reset.css" />
+    <link rel="stylesheet" href="./css/newsShare.css" /> 
+</head>
+<body>
+	<iframe name="ifm" id="iframepage" style="background-color: transparent;" marginwidth="0" marginheight="0" frameborder="0"  scrolling="yes" width="100%" src="" style="overflow: hidden">		
+	</iframe>
+	<section id="main" style="opacity:0;filter:alpha(opacity=0);">				
+		<div class="title"><span></span>相关推荐</div>
+		<ul class="newsList">
+<!--			<a href="">
+			<li class="items">
+				<div class="leftCon">
+					<p>vivo X21屏幕指纹手机发布 鹿晗邀你一起解锁vivoivo X21屏幕指纹手机发布 鹿晗邀你一起解锁viv</p>
+					<div class="itemsInfor">
+						<span>新华社</span>
+						<span>刚刚</span>
+						<span>18909</span>阅读
+					</div>
+				</div>
+				<div class="rightImg">
+					<img src="./img/userPhoto.jpg" alt="" />
+				</div>
+			</li>
+			</a>		-->
+		</ul>
+	</section>
+	<div class="shareLink">
+		<div class="icon"><span></span><span>早头条</span></div>
+		<span>看新闻赚零花钱</span>
+		<a class="linkedme" id="linkedME" href="#">打开</a>
+	</div>
+</body>
+	<script type="text/javascript" src="./js/rem.js"></script>
+	<script type="text/javascript" src="./js/loading.js"></script>
+	<script type="text/javascript" src="./js/jquery-3.3.1.min.js"></script>
+	<script type="text/javascript" src="./js/fastclick.js"></script>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script type="text/javascript">
+			var ajaxUrl = "https://zhishun888.com:9443/toutiaotv-api-home-1.0.0/";
+			var newsUrl = window.location.href;
+/*					newsUrl =  "http://47.96.1.236:8080/zttH5/newsShare.html?appVersion=0&brand=apple&device=1&domain=http://47.96.1.236:8080/zaotoutiao-api-home-1.0.0/&height=667&idIdfa=C83B320E-16C2-4324-BEC9-C43C0238E410&idImei=xxxx&ip=183.156.227.161&model=iPhone&osType=2&osVersion=11.3&packageName=com.muki.TopLineTV&type=1&urls=information/list&userAgent=Mozilla/5.0%20(iPhone;%20CPU%20iPhone%20OS%2011_3%20like%20Mac%20OS%20X)%20AppleWebKit/605.1.15%20(KHTML,%20like%20Gecko)%20Mobile/15E216&userId=333&width=375&****zlink=https://lkme.cc/GJD/kzeKlr1DK&****znewsUrl=http://sh.qihoo.com/mob/transcoding?url=http%253A%252F%252Fwww.yidianzixun.com%252F0IkHZpB0&check=e1e2646c0767c673&uid=36111c0e19d8fd8679613ee590b39f87&sign=ex%255F2eb604c1&sv=1&templetctl=7&360newsdetail=1&hsitetype=1&ucheck=dd2e144b7a803e96cf65dde717b9febe&hscmt=1";*/
+/*		newsUrl = "https://zhishun520.com/zttH5/newsShare.html?appVersion=1.2.3&brand=apple&channel=sanliuling&device=0&domain=https://zhishun520.com/zaotoutiao-api-home-1.0.0/&height=1136&idIdfa=(UIDevice.current.identifierForVendor?.uuidString)!&idImei=864594037502421&infoId=c9e1e814e30701b5&invitation=45a856bcb&ip=49,57,50,46,49,54,56,46,48,46,49,50,52&model=iPhone6&osType=1&osVersion=1.1.1&packageName=com.muki.topline&type=1&urls=information/list&userAgent=Mozilla/5.0 (Linux; Android 7.0; PRO 7-S Build/NRD90M; wv) AppleWebKit/537.36 (KHTML, like Gecko) Version/4.0 Chrome/51.0.2704.110 Mobile Safari/537.36&userId=349&width=22&z****zTitle=梁险峰任河南省委统战部副部长 原任空军南宁基地副政委&z****zlink=https://lkme.cc/GJD/4ri3df0DK&z****znewsUrl=http://sh.qihoo.com/mob/transcoding?url=http%3A%2F%2Fdistrict.ce.cn%2Fnewarea%2Fsddy%2F201804%2F13%2Ft20180413_28816033.shtml&check=832366cf4eb7e7ac&uid=6ef84a826c317a5de922bb953f1c92ef&sign=ex%5F2eb604c1&sv=1&templetctl=7&360newsdetail=1&hsitetype=1&ucheck=bb18710ceac98ac88c6a8687a393a475&hscmt=1"//android	*/
+
+
+			var urlResult = decodeURI(newsUrl).split("****");
+			var urlPara = urlResult[0];
+			/**
+			 * 获取Url地址中userId参数   userID
+			 */
+/*			console.log(urlPara.substr(urlPara.indexOf("?")+1));*/
+			function getUrlParams(name) { 
+			    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i"); //定义正则表达式 
+			    var r = urlPara.substr(urlPara.indexOf("?")+1).match(reg);  
+			    if (r != null) return unescape(r[2]); 
+			    return null; 
+			};
+			console.log(urlResult);
+			/**
+			 *   @param    
+			 *   device:设备名称（0为安卓，1为iOS，2为PC）;
+			     userId:用户ID;
+			     packageName：app包名；
+			     appVersion：app版本号；
+			     idIdfa：ios为idfa;
+			     idImei: android为imei;
+			     height: 屏幕的物理高度，以像素为单位；
+			     width：屏幕的物理宽度，以像素为单位；
+			     brand：设备品牌；
+			     model：设备型号；
+			     osVersion：设备操作系统版本号，例如3.1.2，需要三位数；
+			     osType: 操作系统类型 1.ANDROID 2.IOS 3.WP；
+			     type: 设备网络环境 1.WIFI 2.UNKNOWN 3.2G 4.3G 5.4G；
+			     ip: 设备当前ip；
+			     domain：站点主域；
+			     urls: 当前页面；
+			     userAgent：浏览器的UA			     
+			     link:深度链接
+			 */
+			var device = getUrlParams("device");
+			var userId = getUrlParams("userId");
+			var packageName = getUrlParams("packageName");
+			var appVersion = getUrlParams("appVersion");
+			var idIdfa = getUrlParams("idIdfa");
+			var idImei = getUrlParams("idImei");
+			var height = getUrlParams("height");
+			var width = getUrlParams("width");
+			var brand = getUrlParams("brand");
+			var model = getUrlParams("model");
+			var osVersion = getUrlParams("osVersion");
+			var osType = getUrlParams("osType");
+			var type = getUrlParams("type");
+			var ip = getUrlParams("ip");
+			var domain = getUrlParams("domain");
+			var urls = getUrlParams("urls");
+			var userAgent = navigator.userAgent;
+			var newsUrl = urlResult[3].split("newsUrl=")[1].replace("http://","https://");//新闻链接
+			var infoId = getUrlParams("infoId");//详情
+			var title = urlResult[1].split("zTitle=")[1];//标题
+			var channel = getUrlParams("channel");//深度链接渠道
+			var invitation = getUrlParams("invitation");//标题
+			console.log({"newsUrl":newsUrl});
+			console.log({
+			     "device":device,
+			     "userId":userId,
+			     "packageName":packageName,
+			     "appVersion":appVersion,
+			     "idIdfa":idIdfa,
+			     "idImei": idImei, 
+			     "height": height,
+			     "width":width,
+			     "brand":brand,
+			     "model":model,
+			     "osVersion":osVersion,
+			     "osType": osType,
+			     "type": type, 
+			     "ip": ip,
+			     "domain":domain,
+			     "urls": urls,
+			     "userAgent":userAgent,
+			     "newsUrl":newsUrl,
+			     "infoId":infoId
+			});
+			/**
+			 * 文章标题
+			 */
+			document.title = title;
+			/**
+			 * iframe高度全屏
+			 */
+		    $('#iframepage').css("height",$(window).height()+"px" );		    
+			/**
+			 * 文章相关推荐
+			 */
+			axios({	
+			  url: 'information/relevant/list',
+			  method: 'get', // 默认是 get
+			  baseURL: ajaxUrl,
+			  params: {
+			     device:device,
+			     userId:userId,
+			     packageName:packageName,
+			     appVersion:appVersion,
+			     idIdfa:idIdfa,
+			     idImei:idImei, 
+			     height:height,
+			     width:width,
+			     brand:brand,
+			     model:model,
+			     osVersion:osVersion,//设备操作系统版本号，例如3.1.2，需要三位数；
+			     osType: osType, //1.ANDROID 2.IOS 3.WP；
+			     type: type, //1.WIFI 2.UNKNOWN 3.2G 4.3G 5.4G；
+			     ip: ip,//设备当前ip；
+			     domain:domain,//站点主域；
+			     urls: urls,//当前页面；
+			     userAgent:userAgent,//浏览器的UA
+			  }
+			  })
+			.then(function(res){
+				/*alert("appVersion",appVersion);*/
+			  	var _html = "";	
+			  	console.log(res.data.data);
+			  	res.data.data.forEach(function(item,index){
+			  		if(item.type==1){
+			  			var time1 = new Date().getTime();
+			  			var time2 = getTs(item.obj.createDate);
+			  			var timeDiff = time1-time2;
+			  			var readCnt;
+			  			console.log(item);
+			  			if(item.obj.readCnt.length>5||item.obj.readCnt.length==5){
+			  				readCnt = item.obj.readCnt.substr(0,item.obj.readCnt.length-4)+"万";
+			  			}else{
+			  				readCnt = item.obj.readCnt;
+			  			}
+			  			_html += 
+			  			'<a href="'+ item.obj.url+'">'
+							+'<li class="items">'
+								+'<div class="leftCon">'
+									+'<p>'+item.obj.title+'</p>'
+									+'<div class="itemsInfor">'
+										+'<span>'+item.obj.author+'</span>'
+										+'<span>'+countdown(timeDiff)+'</span>'
+										+'<span>'+readCnt+'</span>阅读'
+									+'</div>'
+								+'</div>'
+								+'<div class="rightImg">'
+									+'<img src="'+item.obj.picUrl+'" alt="" />'
+								+'</div>'
+							+'</li>'
+						+'</a>';
+			  		}else if(item.type == 2){
+			  			/*console.log("zheshiyitiaogaunggao",index);*/
+			  			_html += 
+			  			'<a href="'+ item.obj.cUrl+'">'
+					  		+'<li class="items">'
+								+'<div class="leftCon">'
+									+'<p>'+item.obj.title+'</p>'
+									+'<div class="itemsInfor">'
+										+'<span>广告</span>'								
+									+'</div>'
+								+'</div>'
+								+'<div class="rightImg">'
+									+'<img src="'+item.obj.url+'" alt="" />'
+								+'</div>'
+							+'</li>'
+						+'</a>';
+			  		}					
+			  	})		
+			 /* 	console.log("_html",_html);*/
+			  	//渲染相关推荐
+			  	$(".newsList").eq(0).html(_html);
+			 })
+			.catch(function(error){
+				console.log(error);
+			});
+			/**
+		     * iframe 新闻链接
+		     */
+			$('#iframepage').attr("src",newsUrl);
+			document.frames("ifm").document.location=newsUrl;
+			/**
+			 * 时间计时
+			 */
+			function countdown(leftTime){				
+				var d,h,m,s; 
+				var showTime;
+                if(leftTime>=0){  
+	                 d = Math.floor(leftTime/1000/60/60/24);  
+	                 h = Math.floor(leftTime/1000/60/60%24);  
+	                 m = Math.floor(leftTime/1000/60%60);  
+	                 s = Math.floor(leftTime/1000%60);                     
+	            }  
+/*	            //将倒计时赋值到div中  				
+				console.log(`${h}:${m}:${s}`);*/
+				if(m!=0&&h===0){
+					showTime = m+"分钟前";
+				}else if(m===0){
+					showTime = s+"秒前";
+				}else if(h!=0){
+					showTime = h+"小时前";
+				}
+				return showTime;
+				/*console.log(showTime);*/
+			};
+			/**
+			 * 获取时间戳兼容问题
+			 */
+			function getTs(time){  
+			    var arr = time.split(/[- :]/),  
+			    _date = new Date(arr[0], arr[1]-1, arr[2], arr[3], arr[4], arr[5]),  
+			    timeStr = Date.parse(_date)  
+			    return timeStr  
+			}  
+	</script>
+	<script src="https://static.lkme.cc/linkedme.min.js" ></script>
+	<script src="./js/linkedME/linkedME.js" ></script>
+</html>
+
+
+

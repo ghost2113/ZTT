@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>开启宝箱</title>
+    <link rel="icon" href="./static/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="./css/reset.css" />
+    <link rel="stylesheet" href="./css/common.css" />
+    <link rel="stylesheet" href="./css/nfTreasure.css" />
+	<script>
+		//获取浏览器页面可见高度和宽度  
+        var _PageHeight = document.documentElement.clientHeight,  
+            _PageWidth = document.documentElement.clientWidth;  
+        //计算loading框距离顶部和左部的距离（loading框的宽度为215px，高度为61px）  
+        var _LoadingTop = _PageHeight > 61 ? (_PageHeight - 61) / 2 : 0,  
+            _LoadingLeft = _PageWidth > 215 ? (_PageWidth - 215) / 2 : 0;  
+        //在页面未加载完毕之前显示的loading Html自定义内容  
+        var _LoadingHtml = 
+        '<div id="loadingDiv" style="position:absolute;left:0;width:100%;height:' + _PageHeight + 'px;top:0;background:url(./img/details_loading.png) no-repeat center center;background-size:100% 100%;opacity:100;filter:alpha(opacity=100);z-index:10000;"></div>';
+        //呈现loading效果  
+        document.write(_LoadingHtml);  
+        //监听加载状态改变  
+        document.onreadystatechange = completeLoading;     
+        //加载状态为complete时移除loading效果  
+        function completeLoading() {  
+            if (document.readyState == "complete") {  
+                var loadingMask = document.getElementById('loadingDiv');  
+                loadingMask.parentNode.removeChild(loadingMask);  
+                $("#main").css("display","flex");
+            }  
+        }  
+	</script>
+</head>
+<body>
+	<div id="loadingDiv" style="position:absolute;left:0;width:100%;height:100%;top:0;background:url(./img/details_loading.png) no-repeat center center;background-size:100% 100%;background:100% auto;opacity:100;filter:alpha(opacity=100);z-index:10000;"></div>
+	<!--背景图-->
+	<div class="actiBg"><img src="./img/treasureBg.png" alt="" /></div>
+	<section id="main">	
+		<div class="treasureTit"><img src="./img/treasureTit.png" alt="" /></div>
+		<div class="treasureTime"></div>
+		<div class="treasure">
+			
+			<img class="treasureBg" src="./img/treasure.png" alt="" />
+			<div class="openRules">
+				<img class="imgActive" src="./img/treasureActive.gif" alt="" />
+				<p class="h4">宝箱规则</p>
+				<p>1、活动期间开启神秘宝箱可获得金币或现金<span id="userID"></span> </p>
+				<p>2、神秘宝箱开启之后三个小时您可以再次开启宝箱</p>
+			</div>
+		</div>
+	</section>
+	<footer id="footer">		
+		<a class="open" href="javascript:void(0);">开启宝盒</a>
+		<a class="countdown" href="javascript:void(0);"><span id="_h"></span><span id="_m"></span><span id="_s"></span>
+		</a>
+	</footer>
+	<div class="mask" style="display:none;">
+			<div class="box">
+				<span class="close closeBtn"></span>
+				<img src="./img/treasureStar2.png" alt="" />
+				<!--vip-->
+				<p class="p1 vip">恭喜您获得<span class="getGold">10</span>金币</p>		
+				<button class="share vip closeBtn">确定</button>
+				<!--非vip-->
+				<p class="p1 novip">恭喜您获得<span class="getGold">10</span>金币</p>	
+				<p CLASS="p2 novip">成为VIP可获得更多金币和零钱</p>
+				<button class="share novip" onclick="jumpPage()">立即成为VIP</button>
+			</div>
+	</div>
+	<script type="text/javascript" src="static/fastclick.js"></script>
+	<script type="text/javascript" src="static/common.js"></script>
+	<script type="text/javascript" src="https://unpkg.com/zepto@1.2.0/dist/zepto.js"></script>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script>
+			//获取Url地址中userId参数
+			function getUrlParams(name) { 
+			    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i"); //定义正则表达式 
+			    var r = window.location.search.substr(1).match(reg);  
+			    if (r != null) return unescape(r[2]); 
+			    return null; 			    
+			};			
+			var userID = getUrlParams("userId");
+			//请求开启宝箱信息
+			var _handle = true;//是否可以开启宝箱
+			var nextOpen;
+			ajaxUrl = urlTest;
+			axios.get(ajaxUrl+"/open/treasure?userId="+userID+"&isSubmit=0")
+				.then(function(response){
+					var memberType = response.data.memberType;
+					//novip
+					if(memberType==0||memberType==null){
+						$(".vip").remove();
+					}else{
+					//vip
+						$(".novip").remove();
+					}
+					//计时器
+		    		var countTime = setInterval(countdown,1000);	
+					nextOpen = response.data.leadTime.nextOpen;
+					if(response.data.msg=="可以开宝箱"){
+						$(".open").show();$(".countdown").hide();						
+					}else if(response.data.msg=="该用户还没开过宝箱,可以开启宝箱"){
+						$(".open").show();$(".countdown").hide();						
+					}else if(response.data.msg=="该用户还没开过宝箱,直接开启宝箱"){
+						$(".open").show();$(".countdown").hide();						
+					}else if(response.data.msg=="可以开宝箱，已开"){
+						$(".open").hide();$(".countdown").show();						
+					}else if(response.data.msg=="已经达到今日最多开宝箱获得金币数"){
+						$(".open").hide();$(".countdown").show();						
+					}else if(response.data.msg=="还未到下次开宝箱时间，返回下次开箱时间"){
+						$(".open").hide();$(".countdown").show();						
+					};
+				})
+			   .catch(function(error){
+			   		console.log(error);
+			 })
+			//开启宝箱
+			$(".open").on("click",function(){				
+				axios.get(ajaxUrl+"/open/treasure?userId="+userID+"&isSubmit=1")
+				.then(function(response){
+				    console.log(response);
+                    nextOpen = response.data.leadTime.nextOpen;
+					/*$(".open").hide();$(".countdown").show();*/
+					//计时器
+		    		var countTime = setInterval(countdown,1000);
+					//开启宝箱获取金币数
+					$(".getGold").text(response.data.getGold);
+					$(".mask").show();
+					console.log("开启宝箱返回信息",response);
+				})
+			   .catch(function(error){
+			   		console.log(error);
+			   })				
+			});
+			//获取倒计时时间
+			function countdown(leftTime){
+				var leftTime = nextOpen - new Date();
+				var d,h,m,s;  
+                if(leftTime>=0){  
+	                 d = Math.floor(leftTime/1000/60/60/24);  
+	                 h = Math.floor(leftTime/1000/60/60%24);  
+	                 m = Math.floor(leftTime/1000/60%60);  
+	                 s = Math.floor(leftTime/1000%60);                     
+	            }  
+	            //将倒计时赋值到div中  				
+	            document.getElementById("_h").innerHTML = h+"时";  
+	            document.getElementById("_m").innerHTML = m+"分";  
+	            document.getElementById("_s").innerHTML = s+"秒后可再次开启"; 
+	            if(leftTime===0){
+	            	clearInterval(countTime);
+	            };
+	            $("#loadingDiv").hide();
+			}
+			//关闭弹出层
+			
+			$(".closeBtn").on("click",function(){
+				$(".mask").hide();
+                $(".open").hide();$(".countdown").show();
+			}),
+			//强制取消loading层
+			setTimeout(function(){
+				$("#loadingDiv").hide();
+			},3000);
+   			/**
+   			 * 成为vip
+   			 */
+   			function jumpPage(){    
+		       var u = navigator.userAgent;
+		       var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+		       var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+		       if(isAndroid){
+		           window.jsi.jumpPage("turnVip");
+		       }else if(isiOS){
+		           /*alert('是否是iOS：'+isiOS);*/
+		           window.webkit.messageHandlers.jumpPage.postMessage("turnVip");
+		       }
+   			}
+	</script>
+</body>
+</html>

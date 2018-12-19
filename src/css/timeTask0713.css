@@ -1,0 +1,1 @@
+html,body{display:block;posision:relative;left:0;top:0;overflow:auto;-webkit-tap-highlight-color:transparent;-webkit-overflow-scrolling:touch}#main{-webkit-overflow-scrolling:touch}#main #navTab{height:0.4rem;display:flex;display:-webkit-flex;flex-direction:row;justify-content:space-between;align-items:center}#main #navTab li{text-align:center}

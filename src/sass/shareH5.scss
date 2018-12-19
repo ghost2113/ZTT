@@ -1,0 +1,167 @@
+@charset "utf-8";
+// 默认将输出webkit前缀，moz前缀和标准
+@mixin prefixerKey($property, $value, $prefixes: webkit moz o ms) {
+  #{$property}: $value;
+
+  @each $prefix in $prefixes {
+    @if $prefix == webkit {
+      -webkit-#{$property}:#{$value};
+    }
+    @else if $prefix == moz {
+      -moz-#{$property}:#{$value};
+    }
+    @else if $prefix == o {
+      -o-#{$property}:#{$value};
+    }
+    @else if $prefix == ms {
+      -ms-#{$property}:#{$value};
+    }
+  }
+}
+@mixin prefixerValue($property, $value, $prefixes: webkit moz o ms) {
+  #{$property}: $value;
+
+  @each $prefix in $prefixes {
+    @if $prefix == webkit {
+      #{$property}:-webkit-#{$value};
+    }
+    @else if $prefix == moz {
+      #{$property}:-moz-#{$value};
+    }
+    @else if $prefix == o {
+      #{$property}:-o-#{$value};
+    }
+    @else if $prefix == ms {
+      #{$property}:-ms-#{$value};
+    }
+  }
+}
+//flex布局
+@mixin flex($direction,$justify:center,$alignItems:center){
+    display:flex;
+    display:-webkit-flex;
+    flex-direction:$direction;
+    justify-content: $justify;
+    align-items: $alignItems;
+}
+//字体样式
+@mixin font($size:14px,$weight:500,$family:"微软雅黑",$height:1.4,$color:#000){
+    font-size:$size;
+    font-weight:$weight;
+    font-family:$family;
+    line-height:$height;
+    color:$color;
+}
+//多行文本溢出
+@mixin overflow($num:1){
+   display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: $num;
+    overflow: hidden; 
+}
+//元素水平居中
+@mixin centerRow{
+    margin:0 auto;
+}
+@mixin img100{
+    display:block;
+    width: 100%;
+    height:100%;
+}
+//主题黄色
+$fontColor:#f8e5a1;
+html,body{
+    position:relative;
+    font-size:14px;
+    background:url(../img/shareBg.png) repeat-y center center;
+    background-size:100% auto;
+}
+#main{
+    padding:0.2rem 0;
+   @include flex(column,space-between);
+   .swiper-container{
+      height:0.32rem;
+      background:rgba(0,0,0,0.3);
+      border-radius:100px;
+      overflow:hidden;
+      .swiper-wrapper{
+        height:0.32rem;
+        .notice{
+          height:0.32rem;
+          @include flex(row,space-between);   
+          padding:0 0.1rem;
+          @include font(0.12rem,null,null,null,white);          
+          .user{
+              @include flex(row,null,null);
+              width:0.225rem;
+              height:0.225rem;
+              border-radius:100px;
+              overflow:hidden;
+//            background:url(../img/shareUser.png) repeat-y center center;
+//            background-size:100% auto;
+              img{
+                  display:block;
+                  width:100%;
+              }
+          }
+          .userName{
+              white-space:nowrap;
+          }
+          .userName,.getMoney{
+              margin:0 0.05rem;
+          }
+        }
+      }
+   }
+  
+  .shareTit{
+      flex-shrink: 1;
+      margin:0 auto;
+      img{
+          display:block;
+          width:2.29rem;
+      }
+  }
+  .openPacket{
+      flex-shrink: 1;
+      width:3.15rem;
+      height:1.87rem;
+      padding-top:1.67rem;
+      background:url(../img/shareRedPacket.png) repeat-y center center;
+      background-size:100% auto;
+      .prompt{
+          @include font(0.2rem,null,null,0.36rem,white);
+          text-align:center;
+      }
+      a{
+          display:block;
+          width:1.88rem;
+          height:0.48rem;
+          margin:0.35rem auto 0;
+          border:none;
+          outline-style: none;
+          background:url(../img/shareBtn.png) repeat-y center center;
+          background-size:100% auto;
+      }
+  }  
+}
+/*微信遮罩*/
+.mask{
+    display:none;
+    position:fixed;
+    left:0;
+    top:0;
+    width:100%;
+    height: 100%;
+    padding:0.3rem;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background:rgba(0,0,0,.7);
+    box-sizing: border-box;
+}
+.mask img{
+    display:block;
+    float:right;
+    width:1.5rem        
+}

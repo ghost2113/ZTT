@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>看新闻赚红包</title>
+		<meta charset="utf-8" />
+		<meta name='apple-itunes-app' content='app-id=477927812'>
+		<link rel="dns-prefetch" href="//yun.tuisnake.com">
+		<script type="text/javascript">
+			! function(e, i) {
+				var t = e.documentElement,
+					n = navigator.userAgent.match(/iphone|ipod|ipad/gi),
+					a = n ? Math.min(i.devicePixelRatio, 3) : 1,
+					m = "orientationchange" in window ? "orientationchange" : "resize";
+				t.dataset.dpr = a;
+				for(var d, l, c = !1, o = e.getElementsByTagName("meta"), r = 0; r < o.length; r++) l = o[r], "viewport" == l.name && (c = !0, d = l);
+				if(c) d.content = "width=device-width,initial-scale=1.0,maximum-scale=1.0, minimum-scale=1.0,user-scalable=no";
+				else {
+					var o = e.createElement("meta");
+					o.name = "viewport", o.content = "width=device-width,initial-scale=1.0,maximum-scale=1.0, minimum-scale=1.0,user-scalable=no", t.firstElementChild.appendChild(o)
+				}
+				var s = function() {
+					var e = t.clientWidth;
+					e / a > 640 && (e = 640 * a), window.remScale = e / 640, t.style.fontSize = 200 * (e / 640) + "px"
+				};
+				s(), e.addEventListener && i.addEventListener(m, s, !1)
+			}(document, window);
+		</script>
+		<link rel="stylesheet" href="./css/promote.css">
+	</head>	
+	<body>
+		<script src="https://s13.cnzz.com/z_stat.php?id=1273956373&web_id=1273956373" language="JavaScript"></script>
+		<div class="btn clickArea" data-href="https://zhishun888.com:9443/huashu.apk"></div>
+		<div class="packContainer"></div>
+		<div class="light"></div>
+		<div class="lunbo">
+			<div class="info1"></div>
+			<div class="info2"></div>
+			<div class="info3"></div>
+			<div class="info4"></div>
+		</div>
+		<div class="float">
+			<div class="btn3 clickArea"></div>
+		</div>
+		<script type="text/javascript" src="./js/loading.js"></script>
+		<script type="text/javascript" src="./js/jquery-3.3.1.min.js"></script>
+		<script src="./js/linkedME/log.js"></script>	
+		<script type="text/javascript" src="./js/downApp.js"></script>
+		<script src="https://static.lkme.cc/linkedme.min.js" ></script>
+		<script type="text/javascript">
+		  var channel = getUrlParams("channel");//深度链接渠道
+		  var invitation = getUrlParams("invitation");//标题
+	      linkedme.init("ccd8c20e25692f3e4de15fe078c784c3", {type:"live"}, null);
+	      var data = {};
+	      data.type = "live";  //表示现在使用线上模式,如果填写"test", 表示测试模式.【可选】
+	      data.feature = "功能名称"; // 自定义深度链接功能，多个用逗号分隔，【可选】
+	      data.stage = "阶段名称"; // 自定义深度链接阶段，多个用逗号分隔，【可选】
+	      data.channel = "渠道链接"; // 自定义深度链接渠道，多个用逗号分隔，【可选】
+	      data.tags = "标签名称"; // 自定义深度链接标签，多个用逗号分隔，【可选】
+	      data.ios_custom_url = "http://www.pgyer.com/Headline"; // 自定义iOS平台下App的下载地址，如果是AppStore的下载地址可以不用填写，需填写http或https【可选】
+	      data.ios_direct_open = "true"; //未安装情况下，设置为true为直接打开ios_custom_url，默认为false【可选】
+	      data.android_custom_url = "";// 自定义安卓平台下App的下载地址，需填写http或https【可选】
+	      data.android_direct_open =""; //设置为true，所有情况下跳转android_custom_url，默认为false【可选】
+	      var value1 = channel;
+	      var value2 = invitation;
+	      data.params = '{"channel":"'+value1+'","invitation":"'+value2+'"}';//注意单引号和双引号的位置
+	      linkedme.link(data, function(err, response){
+	        if(err){
+	          // 生成深度链接失败，返回错误对象err
+	        } else {
+				
+				console.log(response);
+				$(".btn").attr("data-href",response.url);		
+	        	/*document.body.innerHTML += '<a class="linkedme" href="'+response.url+'">LinkedME深度链接</a>'*/
+	        }
+	      },false);   
+		</script>
+		<script>
+			$(".clickArea").on("click",function(){
+		     /*var u = navigator.userAgent;
+		       var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+		       var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+		       if(isAndroid){
+		          window.location.href = $(".clickArea").attr("data-href");
+		       }else if(isiOS){
+		          window.location.href = $(".clickArea").attr("data-href");
+		       }*/	       	  
+				var _czc = _czc || [];
+				//下载链接
+				_czc.push(["_trackPageview", "/huashu.apk","https://zhishun888.com/"]);
+				_czc.push(["_trackPageview", "/huashu.apk","https://lkme.cc/GJD/MSLoAVBGK"]);
+				//事件
+				_czc.push(["_trackEvent", "网页","H5页面下载","早头条"]);
+			});
+		</script>
+	</body>
+</html>

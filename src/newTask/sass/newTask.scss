@@ -1,0 +1,299 @@
+@charset "utf-8";
+//flex布局
+@mixin flex($direction,$justify:center,$alignItems:center){
+    display:flex;
+    display:-webkit-flex;
+    display:-moz-flex;
+    display:-ms-flex;
+    display:-o-flex;
+    flex-direction:$direction;
+    justify-content: $justify;
+    align-items: $alignItems;
+}
+//字体样式
+@mixin font($size:14px,$weight:500,$family:"微软雅黑",$height:1.4,$color:#000){
+    font-size:$size;
+    font-weight:$weight;
+    font-family:$family;
+    line-height:$height;
+    color:$color;
+}
+//多行文本溢出
+@mixin overflow($num:1){
+   display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: $num;
+    overflow: hidden; 
+}
+//元素水平居中
+@mixin centerRow{
+    margin:0 auto;
+}
+//主题红色
+$bg:#f5f5f5;
+$themeColor:#f64040;
+$fontColor:#1a1a1a;
+$fontGray:#999999;
+$fontred:#fb2e3c;
+html,body{
+    width:100%;
+    height:100%;
+    font-family: "微软雅黑";
+    -webkit-overflow-scrolling: touch; 
+}
+#main{    
+    width:100%;
+    height:100%;
+    #content{              
+        width:100%;
+        height:100%;
+        position:relative;
+        left:0;
+        top:0;
+        @include flex(column,flex-start);
+        background:white;
+        .border5{
+            width:100%;
+            border-top:5px solid $bg;
+            background:$bg;
+        }
+        .height15{
+            width:100%;
+            border-top:0.15rem solid transparent;
+        }
+        .padding15{padding:0 0.15rem;box-sizing:border-box;}
+        .border1{
+            width:100%;
+            height:1px;
+            background:$bg;
+        }
+        .taskDaysWarp{
+            width:100%;
+            padding:0 0.15rem;box-sizing:border-box;
+           @include font(0.17rem,600,null,null,$fontColor);
+        }
+        .taskTimeWrap{
+            width:100%;
+            padding:0 0.15rem;box-sizing:border-box;
+           @include font(0.14rem,null,null,null,$fontGray);
+        }
+        .goHighRebate{
+            width:100%;
+            padding-top:0.15rem;
+            img{
+                width:100%;
+                margin:0;
+            }
+        }
+        .taskCon{
+            width:100%;
+            padding:0 0.15rem 0.15rem;
+            box-sizing: border-box;
+            //新手任务
+            .taskList{
+                @include flex(column,flex-start);
+                .taskItem{
+                     width:100%;
+                     @include font(0.14rem,null,null,null,null);
+                     text-align:center;
+                     padding:0.15rem 0;
+                     .icon{
+                         float:left;
+                         width:0.45rem;
+                         height:0.45rem;
+                         @include flex(column,center,center);
+                         border-radius:50%;
+                         background:$bg;
+                         overflow:hidden;
+                         img{
+                             display:block;
+                             width: 0.21rem;
+                         }
+                     }
+                     .item{
+                         float:left;
+                         height:0.45rem;
+                         @include flex(column,space-between,flex-start);
+                         @include font(0.16rem,600,null,null,$fontColor);
+                         .p1{                            
+                             .gold{
+                                 font-size:0.14rem;
+                                 color:$fontred;
+                                 font-weight:500;
+                             }
+                         }
+                         .p2{
+                            font-size:0.14rem;
+                            color:$fontGray;
+                            font-weight:500;
+                             .num{
+                                 color:$fontred;
+                             }
+                         }
+                         
+                     }
+                     .btn{
+                         float:right;
+                         width:0.8rem;
+                         height:0.45rem;
+                         @include flex(column,center,center);                                                                           
+                         .taskState{
+                             float:right;
+                             width:0.8rem;
+                             height:0.3rem;
+                             overflow:hidden;
+                             font-size:0.13rem;
+                             border:none;
+                             border-radius:0.15rem;
+                             box-sizing:border-box;
+                         }
+                         .taskState1{
+                             display:none;
+                             color:$fontred;
+                             border:1px solid $fontred;
+                             background:transparent;
+                         }
+                         .taskState2{
+                            display:none;
+                            color:white;
+                            background:$fontred;
+                         }
+                          .taskState3{
+                            display:none;
+                            color:$fontGray;
+                            background:$bg;
+                         }
+                     }
+
+                }
+            }
+            //红包奖励
+            .pocket{
+                @include flex(row,space-around);
+                @include font(0.14rem,null,null,null,null);
+                background:white;
+                div{
+                    width:0.075rem;
+                    height:2.04rem;
+                    background:$bg;
+                }
+                .pocketItem{
+                    padding:0.2rem;
+                    width:1.37rem;
+                    height:1.64rem;   
+                    background-size:100% auto;
+                    background-image:url('../img/pocket.png');
+                    background-repeat:no-repeat;
+                    background-position:center center;
+                    background-origin:content-box;
+                    -webkit-background-origin: content-box;
+                    //background-clip: content-box;
+                    word-break: break-word;
+                    text-align:center;
+                   .p1{   
+                         padding-top:0.18rem;    
+                         padding-bottom:0.45rem;                  
+                         @include font(0.12rem,null,null,0.15rem,white);
+                    }
+                    .p2{
+                        padding-top:0.18rem;
+                        padding-bottom:0.3rem;
+                        @include font(0.18rem,null,null,0.3rem,$fontred);
+                    }
+                    .tip{                                                
+                        display:block;
+                        padding:0 0.15rem 0;
+                        width:100%;
+                        text-align:left;
+                         @include font(0.12rem,null,null,null,white);
+                         box-sizing:border-box;
+                         overflow: hidden;
+                         text-align:center;
+                    }
+                }
+                .pocketItemL{
+                    display:block;
+                    background-image:url('../img/pocket.png');
+                }
+                .pocketItemLactive{
+                    display:none;
+                    background-image:url('../img/pocketAc.png');
+                }
+                .pocketItemR{
+                    display:block;
+                    background-image:url('../img/pocket.png');
+                }
+                .pocketItemRactive{  
+                    display:none;                 
+                    background-image:url('../img/pocketAc.png');
+                }
+            }
+            //活动规则
+            .taskRules{
+                .ruleTitle{
+                    width:100%;
+                    padding-bottom:0.15rem;
+                    img{
+                        display:block;
+                        width:1.77rem;
+                        margin:0 auto;
+                    }
+                }
+                .ruleCon{
+                    p{
+                        @include font(0.14rem,null,null,0.2rem,$fontColor);
+                        margin-bottom:0.15rem;
+                    }
+                }
+            }
+        }
+    }
+    #mask{
+        position:fixed;
+        left:0;
+        top:0;
+        width:100%;
+        height:100%;
+        background:rgba(0,0,0,0.3);
+        .maskCon{
+            width: 100%;
+            height:100%;
+            @include flex(column,center,center);
+        }
+        .maskwrap{
+            position:relative;
+            width:2.6rem;
+            padding:0.2rem 0.2rem 0.2rem;
+            background:white;
+            border-radius:0.1rem;
+            box-sizing:border-box;
+            overflow: hidden;
+            @include flex(column,center,center);
+            font-size:0.15rem;
+            p{
+                text-align: center;
+            }
+            .btn{
+                margin-top:0.2rem;
+                outline: none;
+                width:1.2rem;
+                height:0.35rem;
+                background:$themeColor;
+                border-radius:0.175rem;
+                color:white;
+                border:0;
+                text-align:center;
+                line-height:0.35rem;
+            }
+//          span{
+//              display: block;
+//              position:absolute;
+//              top:0.02rem;
+//              right:0.02rem;
+//              width:0.12rem;
+//              height:0.12rem;
+//              background:gray;
+//          };
+        }
+    }
+}

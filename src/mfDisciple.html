@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>徒弟分享</title>
+        <link rel="stylesheet" href="./css/reset.css" />
+    <link rel="stylesheet" href="./css/common.css" />
+    <link rel="stylesheet" href="./css/mfDisciple.css"/>
+</head>
+<body>
+	<!--背景图-->
+	<div class="actiBg"><img src="./img/nfDisBg.png" alt="" /></div>
+	<section id="main" style="opacity:0;filter:alpha(opacity=0);">		
+		<div class="banner">
+			<img src="./img/nfDisTopBg.png" alt="" />
+			<span class="rules">活动规则</span>
+			<span class="list" onclick="toDiscList()">徒弟列表</span>
+		</div>
+		<p class="textTime">— 活动时间：5月1日-5月31日  —</p>
+		<img class="conBg" src="./img/nfDisTitBg.png" alt="error" />
+		<div class="discCon">
+			<ul class="discTab">
+				<li class="newDisc">
+					<span>新增徒弟</span>
+					<span class="newNum">0</span>
+				</li>
+				<div><span></span></div>
+				<li class="effDisc">
+					<span>有效徒弟</span>
+					<span class="effectiveNum">0</span>
+				</li>
+				<div id="">
+					<span></span>
+				</div>
+				<li class="rewardDisc">
+					<span>累计奖励</span>
+					<span class="goldNum">0</span>
+				</li>
+			</ul>	
+			<ul class="disRank">
+				<li><img src="./img/nfDisRank.png" alt="error" /></li>
+				<li>您所在的段位：<span class="dan">无</span></li>
+				<li>下一段位：<span  class="danNext">青铜</span>（还需<span class="unlockDan">1</span>个有效徒弟解锁）</li>
+			</ul>
+		</div>		
+	</section>
+	<footer id="footer">
+		<div class="discBtn" onclick="disciple()">
+			<img src="./img/nfDisBtn.png" alt="error" />
+		</div>
+	</footer>
+	<!--活动规则弹出层start-->
+	<div class="mask" style="display:none;">
+		<div class="discRules">
+			<div class="discRulesTit">
+				活动规则
+				<span class="close"></span>
+			</div>
+			<div class="discRulesCont">
+				<p>每收一位有效徒弟奖励一次性奖励<span class="redFont">3000金币</span> 每当徒弟阅读新闻获得<span class="redFont">10金币</span>，师傅将会获得双倍奖励</p>
+				<p><strong>新增徒弟：</strong>朋友通过你分享的链接下载头条TV并登陆 </p>
+				<p><strong>有效徒弟：</strong>徒弟进贡<span class="redFont">100金币</span>时，成为你的有效徒弟</p>
+				<ul>
+					<h4  class="redFont">段位规则</h4>
+					<li><span>青铜：</span><span class="redFont">0-2</span>位有效徒弟</li>
+					<li><span>白银：</span><span class="redFont">3</span>位有效徒弟</li>
+					<li><span>黄金：</span><span class="redFont">10</span>位有效徒弟</li>
+					<li><span>白金：</span><span class="redFont">66</span>位有效徒弟</li>
+					<li><span>钻石：</span><span class="redFont">200</span>位有效徒弟</li>
+					<li><span>大师：</span><span class="redFont">400</span>位有效徒弟</li>
+					<li><span>王者：</span><span class="redFont">1000</span>位有效徒弟</li>
+				</ul>
+			</div>
+		</div>
+	</div>	
+	<!--活动规则弹出层end-->
+</body>
+	<script type="text/javascript" src="./js/rem.js"></script>
+	<script type="text/javascript" src="./js/zepto.js"></script>
+	<script type="text/javascript" src="./js/loading.js"></script>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script type="text/javascript" src="js/fastclick.js"></script>
+	<script type="text/javascript">
+			//获取Url地址中userId参数
+			function getUrlParams(name) { 
+			    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i"); //定义正则表达式 
+			    var r = window.location.search.substr(1).match(reg);  
+			    if (r != null) return unescape(r[2]); 
+			    return null; 
+			};
+			/**
+			 * 收徒列表
+			 */
+			function toDiscList(){
+				location.href = "./discList.html?userId="+userID;
+			};
+			/**
+			 * 收徒规则
+			 */
+			$(".rules").on("click",function(){
+				$(".mask").show();
+			});
+			$(".close").on("click",function(){
+				$(".mask").hide();
+			})
+			/**
+			 * @param   userId 用户Id
+			 */
+			var userID = getUrlParams("userId");
+			var danList = ["青铜","白银","黄金","白金","钻石","大师","王者"];
+			var index;
+			/**
+		    * 用户徒弟信息
+		    */
+		   axios({
+			  url: '/activity/reward',
+			  method: 'get', // 默认是 get
+			  baseURL: 'https://zhishun888.com:9443/toutiaotv-api-home-1.0.0/',
+			  params: {
+			  	userId:userID,
+				startDate:null,
+				startEnd:null
+			  }
+			})
+			.then(function(res){
+				console.log(res.data);
+				index = danList.indexOf(res.data.dan);
+				$(".dan").text(res.data.dan);
+				$(".newNum").text(res.data.newNum);
+				$(".effectiveNum").text(res.data.effectiveNum);
+				$(".goldNum").text(res.data.goldNum);
+				$(".unlockDan").text(res.data.unlockDan);
+				$(".danNext").text(danList[index+1]);														
+			})
+			.catch(function(error){
+				console.log(error);
+			});
+			/**
+			 * 去收徒
+			 */
+			function disciple(){    
+		       var u = navigator.userAgent;
+		       var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+		       var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+		       if(isAndroid){
+		          /*  alert('是否是Android：'+isAndroid);*/
+		           window.jsi.disciple("ok")
+		       }else if(isiOS){
+		           /* alert('是否是iOS：'+isiOS);*/
+		           window.webkit.messageHandlers.disciple.postMessage("ok");
+		       }	       	   
+			}	
+			/**
+			 * 完美解决safari、微信浏览器下拉回弹效果和上拉空白的bug
+			 * @param {Object} el 滑动元素
+			 */
+			var overscroll = function(el) {  
+			    el.addEventListener('touchstart', function() {  
+			        var top = el.scrollTop  
+			        ,totalScroll = el.scrollHeight  
+			        ,currentScroll = top + el.offsetHeight;  
+			        if(top === 0) {  
+			            el.scrollTop = 1;  
+			        }else if(currentScroll === totalScroll) {  
+			            el.scrollTop = top - 1;  
+			        }  
+			    });  			  
+			    el.addEventListener('touchmove', function(evt) {  
+			    if(el.offsetHeight < el.scrollHeight)  
+			        evt._isScroller = true;  
+			    });  
+			};  			          
+			overscroll(document.querySelector('#main'));  
+			document.body.addEventListener('touchmove', function(evt) {  
+			    if(!evt._isScroller) {  
+			        evt.preventDefault();  
+			    }  
+			});  
+	</script>
+</html>

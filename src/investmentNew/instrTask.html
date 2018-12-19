@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>高额返利</title>
+		<link rel="stylesheet" href="../css/reset.css" />
+		<link rel="stylesheet" href="../static/css/swiper-4.2.6.min.css" />
+		<link rel="stylesheet" href="./css/instrTask.css" />
+	</head>
+
+	<body>
+		<section id="main" style="opacity:0;filter:alpha(opacity=0);">
+			<div class="taskInfo borderB1">
+				<p class="p1">
+					<span class="head"></span>
+					<span class="taskName"></span>
+					<!--<span class="taskStatus red">+<span class="additionalRebates">20</span></span>-->
+				</p>
+			</div>
+			<div class="title borderB3">
+				<p>当前绑定手机号：<span class="red tel"></span></p>
+				<p>请使用当前手机号完成本次任务，否则提交任务将判定为无效</p>
+			</div>
+			<div class="box instructions borderB3">
+				<div class="title borderB1">须知</div>
+				<div class="info instructionsInfo red"> </div>
+			</div>
+			<div class="box steps borderB3">
+				<div class="title borderB1">步骤</div>
+				<div class="info stepsInfo"></div>
+			</div>
+			<ul class="box  stepsImg borderB3" style="display:none">
+				<li class="title borderB1">
+					步骤图例（点击查看大图）
+				</li>
+				<div class="info stepsBox">
+					<ul class="stepsshots">
+					</ul>
+				</div>
+			</ul>
+			<ul class="box screenshot" style="display:none">
+				<li class="title borderB1">
+					审核截图示例(点击查看大图)
+				</li>
+				<div class="info screenshotsBox">
+					<ul class="screenshots">
+					</ul>
+				</div>
+			</ul>
+			<div class="task">
+				<div class="start">开始任务</div>
+				<div class="submit">提交任务</div>
+			</div>
+		</section>
+		<div id="maskImg" style="display:none;">
+			<div class="close"></div>
+			<div class="swiper-container">
+				<div class="swiper-wrapper">
+				</div>
+			</div>
+			<div class="swiper-pagination"></div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../js/zepto.js"></script>
+	<script type="text/javascript" src="../js/rem.js"></script>
+	<script type="text/javascript" src="../js/loading.js"></script>
+	<script type="text/javascript" src="../js/fastclick.js"></script>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script src="../static/js/swiper-4.2.6.min.js"></script>
+	<script>
+		//获取Url地址中userId参数
+		function getUrlParams(name) {
+			var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i"); //定义正则表达式 
+			var r = window.location.search.substr(1).match(reg);
+			if(r != null) return unescape(r[2]);
+			return null;
+		};
+		var userID = getUrlParams("userId");
+		var id = getUrlParams("id");
+		var data = {
+			isSubmit: false,
+			isStart: false,
+			userId: ""
+		}
+		if(localStorage.getItem(id)) {
+			data = JSON.parse(localStorage.getItem(id));
+			//console.log(data);
+		}
+		if(data.isStart && (data.userId == userID)) {
+			//console.log("data.isStart",data.isStart);
+			$(".submit").addClass("submitAc");
+		}
+		/**
+		 * 任务接口
+		 */
+		axios({
+				url: '/investment/info/by/id',
+				method: 'post', // 默认是 get
+				baseURL: ajaxUrl,
+				params: {
+					userId: userID,
+					id: id
+				}
+			})
+			.then(function(res) {
+				console.log(res);
+				var data = res.data.data,
+					logoUrl = data.logoUrl, //人物图标
+					tel = data.tel,
+					taskName = data.taskName, //任务名称			
+					notice = data.notice, //须知				
+					instr = data.screenshotPresent, //截图说明				
+					steps = data.reminders, //步骤
+					picImg, stepsImg;
+				picImg = data.examplesUrl.split(",") //截图示例									
+				var imgLength = picImg.length;
+				document.title = taskName;
+				if(notice !== null && notice !== "") {
+					$(".instructions").show();
+					$(".instructionsInfo").html(notice);
+				}
+				if(steps !== null && steps !== "") {
+					$(".steps").show()
+					$(".stepsInfo").html(steps);
+				}
+				$(".head").css({
+					"background-image": `url(${data.logoUrl})`
+				});
+				$(".taskName").html(taskName);
+				$(".tel").html(tel);
+				var imgHtml = "";
+				var imgBig = "";
+				var stepsBig = "";
+				var stepsHtml = "";
+				var mySwiper;
+				if(data.examplesUrl !== null && data.examplesUrl !== "") {
+					picImg = data.examplesUrl.split(",") //截图示例
+					$(".screenshot").show();
+					picImg.map(function(item, index) {
+						imgHtml += `
+						<li class="bigImg" style="background-image:url(${item});"></li>
+					`;
+						imgBig += `
+						 <div class="swiper-slide"><img src="${item}" alt="" /></div>
+					`;
+					})
+					$(".screenshots").html(imgHtml);
+					$(".bigImg").on("click", function() {
+						$(".swiper-wrapper").html(imgBig);
+						$("#maskImg").show();
+						mySwiper = new Swiper('.swiper-container', {
+							autoplay: false, //可选选项，自动滑动
+							initialSlide: $(this).index(),
+							pagination: {
+								el: '.swiper-pagination',
+								type: "fraction"
+							}
+						})
+					});
+				}
+				if(data.stepImgUrls !== null && data.stepImgUrls !== "") {
+					stepsImg = data.stepImgUrls.split(",") //步骤图
+					$(".stepsImg").show();
+					stepsImg.map(function(item, index) {
+						stepsHtml += `
+						<li class="bigImg2" style="background-image:url(${item});"></li>
+					`;
+						stepsBig += `
+						 <div class="swiper-slide"><img src="${item}" alt="" /></div>
+					`;
+					})
+					$(".stepsshots").html(stepsHtml);
+					$(".bigImg2").on("click", function() {
+						$(".swiper-wrapper").html(stepsBig);
+						$("#maskImg").show();
+						mySwiper = new Swiper('.swiper-container', {
+							autoplay: false, //可选选项，自动滑动
+							initialSlide: $(this).index(),
+							pagination: {
+								el: '.swiper-pagination',
+								type: "fraction"
+							}
+						})
+					});
+				}
+				$(".close").on("click", function() {
+					$("#maskImg").hide();
+					mySwiper.destroy(true, true)
+				});
+				$(".start").on("click", start);
+				$(".submit").on("click", sub);
+
+				function start() {
+					$(".submit").addClass("submitAc");
+					localStorage.setItem(id, JSON.stringify({
+						"isStart": true,
+						"isSubmit": false,
+						"userId": userID
+					}));
+					browser(`${data.investUrl}`);
+					//window.location.href = `${data.investUrl}`;
+				}
+
+				function sub() {
+					if(JSON.parse(localStorage.getItem(id)).isStart) {
+						window.location.href = `./uploadPic.html?userId=${userID}&id=${id}&imgNum=${imgLength}&instr=${escape(instr)}`;
+					}
+				}
+				/**
+				 * 调用原生浏览器开打链接
+				 */
+				function browser(url) {
+					var u = navigator.userAgent;
+					var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+					var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+					if(isAndroid) {
+						window.jsi.browser(url)
+					} else if(isiOS) {
+						window.webkit.messageHandlers.browser.postMessage(url);
+					}
+				};
+
+			})
+			.catch(function(error) {
+				console.log(error);
+			});
+	</script>
+
+</html>

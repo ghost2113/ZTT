@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>测试页面</title>
+	</head>
+	<body>
+	<!--	<iframe 
+			id="myFrameId" 			src="http://sh.qihoo.com/mob/transcoding?url=http%3A%2F%2Fzm.news.so.com%2F0d889c892532c21552feb37e05c1ed83&check=8f02494a7e4eaa80&uid=ac3a43db4dcbd1682943c106fb4bc02f&sign=ex%5F2eb604c1&sv=1&templetctl=7&360newsdetail=1&articlety=zmt&hsitetype=1&ucheck=256a903d41fe2a6a7f7f117f68a9df8a&hscmt=1" 
+			name="myFrameName" 
+			scrolling="no" 
+			frameborder="0" 
+			frameborder="0" ></iframe> 　-->　	
+<!--<a href="http://sh.qihoo.com/mob/transcoding?url=http%3A%2F%2Fzm.news.so.com%2F0d889c892532c21552feb37e05c1ed83&check=8f02494a7e4eaa80&uid=ac3a43db4dcbd1682943c106fb4bc02f&sign=ex%5F2eb604c1&sv=1&templetctl=7&360newsdetail=1&articlety=zmt&hsitetype=1&ucheck=256a903d41fe2a6a7f7f117f68a9df8a&hscmt=1" target="myFrameName" >跳转</a>-->
+		<iframe name="ifm" id="ifm" style="background-color: transparent;" marginwidth="0" marginheight="0" frameborder="0" src="http://sh.qihoo.com/mob/transcoding?url=http%3A%2F%2Fzm.news.so.com%2F723400d9ab790bdf468cf36358d14518&check=7697e2f5060a23d5&uid=934cb1b40a1965fd44d07fd36a7314cf&sign=ex%5F2eb604c1&sv=1&templetctl=7&360newsdetail=1&articlety=zmt&hsitetype=1&ucheck=94bd7dca890d5e956f43de8c4cd0dc86&hscmt=1" width="100%" height="100%" scrolling="yes" style="overflow: hidden">
+</iframe>							
+		用户Id<div id="userId"></div>
+		<button style="width:150px;height:40px;margin:o auto;background:red;border:none;border-radius:30px;text-align:center;line-height:30px;color:white;outline：none;filter:chroma(color=#000000);">调用分享</button>
+	</body>
+	<script type="text/javascript" src="./js/zepto.js"></script>
+	<script type="text/javascript">
+		var startPosition={},deltaY,endPosition={};
+		document.addEventListener('touchstart',touch, false); 
+		document.addEventListener('touchmove',touch, false); 
+		document.addEventListener('touchend',touch, false); 
+		    
+		function touch (event){ 
+			console.log();
+		    var event = event || window.event; 
+		    switch(event.type){ 
+		        case "touchstart": 
+		            var touch = event.touches[0];
+		            startPosition = {
+		                x: touch.pageX,
+		                y: touch.pageY
+		            }
+		            break; 
+		        case "touchend":
+		　　　　　　　break; 
+		        case "touchmove": 
+		            var touch = event.touches[0];
+		            endPosition = {
+		                x: touch.pageX,
+		                y: touch.pageY
+		            }
+		        deltaY = endPosition.y - startPosition.y;
+		　　　　　　　break; 
+		    } 		    		        
+		} 
+		$(function(){
+			//iframe高度
+			/*$('#ifm').css("height",$(window).height()+"px");*/	
+			console.log(document.getElementById("ifm").contentWindow.document.documentElement.scrollTop); 
+        	$("#ifm").contents().scroll(function(event){
+	            console.log(document.getElementById("ifm").contentWindow.document.documentElement.scrollTop); 	
+	        });
+			//获取Url地址中userId参数
+			function getUrlParams(name) { 
+			    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i"); //定义正则表达式 
+			    var r = window.location.search.substr(1).match(reg);  
+			    if (r != null) return unescape(r[2]); 
+			    return null; 
+			};
+			var userID = getUrlParams("userId");
+			document.getElementById("userId").innerHTML = userID;
+			//调用分享页面
+			function fenxiang(){
+		       var urls= "http://www.jingomall.cn/mgoods-140985.html?shareUserId=";
+		       // var title="春新款拼色系带透气小白鞋女舒适平底圆头百搭休闲鞋学生单鞋";
+		       title="金购商城邀您挑选好物";
+		       desc ="春新款拼色系带透气小白鞋女舒适平底圆头百搭休闲鞋学生单鞋";
+		       img ="upload/goods/2018-01/5bafa908ac1dc14adbf1a08ed3359b13.jpg";
+		       img = "http://jingomall.com.cn/" + img;
+		       goodsPrice = "85.90"
+		
+		       var u = navigator.userAgent;
+		       var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+		       var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+		       if(isAndroid){
+		           window.android.doShare(title,desc,urls,img,goodsPrice)
+		       }else if(isiOS){
+		           // alert('是否是iOS：'+isiOS);
+		           window.webkit.messageHandlers.showShopShare.postMessage([urls,title,desc,img,goodsPrice]);
+		       }
+	   		}
+			//iframe
+	/*		function changeFrameHeight(){
+			    var ifm= document.getElementById("iframepage"); 
+			    ifm.height=document.documentElement.clientHeight;
+			
+			}		
+			window.onresize=function(){  
+			     changeFrameHeight();  
+			
+			} */
+			//
+			/*$.ajax({ 
+	       type: "get", 
+	       url: "http://47.96.1.236:8080/zaotoutiao-api-home-1.0.0/information/list?userId=1", 
+	       data: "", 
+	       contentType: "application/json;charset=uft-8", 
+	       dataType: "text", 
+	       success: function success(retData) { 
+	           console.log(retData); 
+	           //alert("请求成功") 
+	           //return true; 
+	       }, 
+	       error: function error(httpRequest) { 
+	           alert("请求失败"); 
+	           //return false; 
+	       } */
+	       /*        
+	        * http://sh.qihoo.com/mob/transcoding?url=http%3A%2F%2Fzm.news.so.com%2F0d889c892532c21552feb37e05c1ed83&check=8f02494a7e4eaa80&uid=ac3a43db4dcbd1682943c106fb4bc02f&sign=ex%5F2eb604c1&sv=1&templetctl=7&360newsdetail=1&articlety=zmt&hsitetype=1&ucheck=256a903d41fe2a6a7f7f117f68a9df8a&hscmt=1
+	        * 
+	   		});  */	   			   		
+	   		//读取iframe里面的内容
+	   		/*var con = window.frames["myFrameName"].document.getElementById("wrap").innerHTML;*/
+	   		/*$("#wrap",document.frames('myFrameName').document)*/
+			/*$(document.getElementById('main').contentWindow.document.body).html()*/
+			/*$("#wrap", document.frames("myFrameName").document).html();*/
+			function getHtml(){
+				var doc;
+		        if (document.all){//IE
+		                doc = document.frames["myFrameName"].document;
+		        }else{//Firefox    
+		                doc = document.getElementById("myFrameId").contentDocument;
+		        }        	
+	        	return doc.getElementById("main");
+			}
+			$.ajax({
+				url:"http://sh.qihoo.com/mob/transcoding?url=http%3A%2F%2Fzm.news.so.com%2F0d889c892532c21552feb37e05c1ed83&check=8f02494a7e4eaa80&uid=ac3a43db4dcbd1682943c106fb4bc02f&sign=ex%5F2eb604c1&sv=1&templetctl=7&360newsdetail=1&articlety=zmt&hsitetype=1&ucheck=256a903d41fe2a6a7f7f117f68a9df8a&hscmt=1",
+				type:"get",
+				dataType:"html",
+				success:function(res){
+					console.log(res);
+				},
+				error:function(error){
+					
+				}
+			});
+					
+		})
+		
+		
+</script>
+</html>

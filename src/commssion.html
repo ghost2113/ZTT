@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>永久提成</title>
+        <link rel="stylesheet" href="./css/reset.css" />
+    <link rel="stylesheet" href="./css/common.css" />
+    <link rel="stylesheet" href="./css/commssion.css"/>
+</head>
+<body>
+	<!--背景图-->
+	<div class="actiBg"><img src="./img/jcsyBg.png" alt="" /></div>
+	
+	<section id="main">	
+		<div class="t">
+			<div class="img" style="width:100%;margin:0.3rem 0 ;">
+				<img src="./img/yjtcTxt.png"/>
+			</div>
+			<div class="img" style="width:100%;margin-bottom:0.1rem;">
+				<img src="./img/yjtcImg1.png"/>
+			</div>
+			<div class="img" style="width:100%;margin-bottom:0.1rem;">
+				<img src="./img/yjtcImg2.png"/>
+			</div>
+			<div class="img" style="width:100%;">
+				<img src="./img/yjtcImg3.png"/>
+			</div>
+		</div>
+		
+		<div class="imgBtn" onclick="disciple()">
+			<!--<img type="button" src="./img/yjtcBtn.png" alt="error" />-->
+		</div>
+	</section>
+</body>
+	<script type="text/javascript" src="./js/rem.js"></script>
+	<script type="text/javascript" src="./js/loading.js"></script>
+	<script type="text/javascript" src="./js/zepto.js"></script>
+	<script type="text/javascript" src="js/fastclick.js"></script>
+	<script type="text/javascript">
+			//获取Url地址中userId参数
+			function getUrlParams(name) { 
+			    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i"); //定义正则表达式 
+			    var r = window.location.search.substr(1).match(reg);  
+			    if (r != null) return unescape(r[2]); 
+			    return null; 
+			};		
+			/**
+			 * 去收徒
+			 */
+			function disciple(){    
+		       var u = navigator.userAgent;
+		       var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+		       var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+		       if(isAndroid){
+		          /*  alert('是否是Android：'+isAndroid);*/
+		           window.jsi.disciple("ok");
+		       }else if(isiOS){
+		           /* alert('是否是iOS：'+isiOS);*/
+		           window.webkit.messageHandlers.disciple.postMessage("ok");
+		       }	       	   
+			}	
+			/**
+			 * 完美解决safari、微信浏览器下拉回弹效果和上拉空白的bug
+			 * @param {Object} el 滑动元素
+			 */
+			var overscroll = function(el) {  
+			    el.addEventListener('touchstart', function() {  
+			        var top = el.scrollTop  
+			        ,totalScroll = el.scrollHeight  
+			        ,currentScroll = top + el.offsetHeight;  
+			        if(top === 0) {  
+			            el.scrollTop = 1;  
+			        }else if(currentScroll === totalScroll) {  
+			            el.scrollTop = top - 1;  
+			        }  
+			    });  			  
+			    el.addEventListener('touchmove', function(evt) {  
+			    if(el.offsetHeight < el.scrollHeight)  
+			        evt._isScroller = true;  
+			    });  
+			};  			          
+			overscroll(document.querySelector('#main'));  
+			document.body.addEventListener('touchmove', function(evt) {  
+			    if(!evt._isScroller) {  
+			        evt.preventDefault();  
+			    }  
+			});  
+	</script>
+</html>

@@ -1,0 +1,167 @@
+@charset "utf-8";
+// 默认将输出webkit前缀，moz前缀和标准
+@mixin prefixer($property, $value, $prefixes: webkit moz o ms) {
+  #{$property}: $value;
+
+  @each $prefix in $prefixes {
+    @if $prefix == webkit {
+      -webkit-#{$property}:#{$value};
+    }
+    @else if $prefix == moz {
+      -moz-#{$property}:#{$value};
+    }
+    @else if $prefix == o {
+      -o-#{$property}:#{$value};
+    }
+    @else if $prefix == ms {
+      -ms-#{$property}:#{$value};
+    }
+  }
+}
+//flex布局
+@mixin flex($direction,$justify:center,$alignItems:center){
+    display:flex;
+    display:-webkit-flex;
+    flex-direction:$direction;
+    justify-content: $justify;
+    align-items: $alignItems;
+}
+//字体样式
+@mixin font($size:14px,$weight:500,$family:"微软雅黑",$height:1.4,$color:#000){
+    font-size:$size;
+    font-weight:$weight;
+    font-family:$family;
+    line-height:$height;
+    color:$color;
+}
+//多行文本溢出
+@mixin overflow($num:1){
+   display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: $num;
+    overflow: hidden; 
+}
+//元素水平居中
+@mixin centerRow{
+    margin:0 auto;
+}
+@mixin img100{
+    display:block;
+    width: 100%;
+    height:100%;
+}
+//主题黄色
+$themeColor:#e73d3d;
+html,body{
+    display:block;
+    posision:relative;
+    left:0;
+    top:0;
+    overflow:auto;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-overflow-scrolling: touch; 
+}
+#main{
+  -webkit-overflow-scrolling: touch; 
+  //标题栏
+  #navTab{
+      height:0.4rem;
+      @include flex(row,space-between,center);
+      padding:0 0.15rem;  
+      border-bottom: 1px solid #FAFAFA;
+      div{
+          text-align:center;
+          font-size:0.14rem;          
+      }
+      div:first-child{
+         width:1.2rem;
+      }
+      div:nth-of-type(2){
+         width:0.6rem;
+      }
+            div:nth-of-type(3){
+         width:0.8rem;
+      }
+            div:nth-of-type(4){
+         flex:1;
+      }
+  }  
+  //内容列表
+  #content{
+      #list{
+          //没有徒弟
+          .noDisc{
+              display:none;
+              padding-top:1rem;
+              img{
+                  display:block;
+                  width:1rem;   
+                  margin:0 auto;         
+              }
+          }
+          li{
+            height:0.5rem;  
+            padding:0 0.15rem;        
+            @include flex(row,space-between,center); 
+            border-bottom: 1px solid #FAFAFA; 
+            div{
+                text-align:center;               
+            }
+             .user{
+               width:1.2rem;
+               white-space: nowrap;
+               overflow: hidden;
+                @include flex(row,flex-start,center);
+                .icon{
+                    width:0.3rem;
+                    height:0.3rem;
+                    border-radius:0.15rem;
+                    overflow: hidden;
+                    img{
+                        display: block;
+                        width:100%;
+                        height:100%;
+                    }
+                }  
+                .pp{
+                     width:0.8rem;
+                     text-align:left;
+                     text-indent:0.5em;                     
+                     white-space: nowrap;
+                     overflow: hidden;
+                     word-break:break-all; /* 支持IE和chrome，FF不支持*/
+                     word-wrap:break-word; /* 以上三个浏览器均支持 */
+                }               
+                .p1{
+                     @include font(0.12rem,null,null,1.4,#1a1a1a);
+                }
+                .p2{
+                    @include font(0.10rem,null,null,1.4,#949494);
+                }
+            }
+            .grade{
+                width:0.6rem;
+                @include font(0.12rem,null,null,1.4,#949494);
+            }
+            .num{
+                width:0.8rem;
+                @include font(0.12rem,null,null,1.4,#949494);
+            }
+            .team{
+                flex:1;
+                @include font(0.12rem,null,null,1.4,#949494);
+                a{
+                    float:right;
+                    display:block;
+                    width:0.58rem;
+                    height:0.25rem;
+                    text-align:center;
+                    @include font(0.12rem,null,null,0.25rem,#FF2735);
+                    border:1px solid #FF2735;
+                    border-radius:0.125rem;
+                }
+            }
+          }
+      }
+  }
+}

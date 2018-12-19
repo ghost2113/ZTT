@@ -1,0 +1,203 @@
+@charset "utf-8";
+@charset "utf-8";
+//flex布局
+@mixin flex($direction,$justify:center,$alignItems:center){
+    display:flex;
+    display:-webkit-flex;
+    flex-direction:$direction;
+    justify-content: $justify;
+    align-items: $alignItems;
+}
+//字体样式
+@mixin font($size:14px,$weight:500,$family:"微软雅黑",$height:1.4,$color:#000){
+    font-size:$size;
+    font-weight:$weight;
+    font-family:$family;
+    line-height:$height;
+    color:$color;
+}
+//多行文本溢出
+@mixin overflow($num:1){
+   display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: $num;
+    overflow: hidden; 
+}
+//元素水平居中
+@mixin centerRow{
+    margin:0 auto;
+}
+//主题红色
+$themeColor:#f64040;
+.borderB1{
+    border-bottom:1px solid #f7f7fa;
+}
+.borderB3{
+    border-bottom:5px solid #f7f7fa;
+}
+.red{
+    color:$themeColor !important;
+}
+*{box-sizing:border-box; }
+html,body{
+    background:#f7f7fa;
+    @include font(0.14rem,null,null,1.4,#1a1a1a);  
+}
+#main{
+    background:white;  
+    img{
+        display:block;
+        max-width:60%;
+        margin:0.1rem auto;
+    }
+    .title{
+        width:100%;
+        padding:0.1rem 0.15rem;  
+    }
+    .box{       
+         width:100%;
+        @include flex(column,flex-start,center);
+        display:none;
+        .info{
+            width:100%;
+            padding:0.1rem 0.15rem;
+        }
+    }
+    //投资任务
+   .taskInfo{
+       @include flex(column,flex-start,center);
+       padding:0.15rem;
+       border-bottom:1px solid #f7f7fa;
+       p{
+           width:100%;                   
+       }
+       .p1{
+           @include font(0.14rem,null,null,0.2rem,black);
+           @include flex(row,flex-start,center);
+           margin-bottom:0.05rem;
+            .head{
+               display:block;
+               width:0.45rem;
+               height:0.45rem;
+               border-radius:0.05rem;
+               background:url(../img/headpath.jpg) no-repeat center center;
+               background-size:100% auto;
+               overflow:hidden;
+           }
+           span{
+               @include font(0.15rem,null,null,0.2rem,null);
+           }
+           .taskName{padding-left:0.1rem;}
+           .red{
+               font-size:0.16rem;
+               color:$themeColor;
+           }        
+       }
+       .p2{
+            @include font(0.12rem,null,null,0.2rem,#bbbcbd);
+            text-indent:0.2rem;
+            background:url(../img/investLink.png) no-repeat 0.05rem center;
+            background-size:0.12rem 0.12rem;
+       }
+   }
+      //截图示例
+   .screenshot,.stepsImg{
+       overflow:hidden;
+       .stepsInfo{        
+           @include flex(row,space-between,center);
+           flex-wrap: wrap;
+           padding:0.1rem 0;
+           img{
+               display:block;
+               width:1.1rem;
+               height:1.8rem;
+               margin-bottom:0.1rem;
+           }
+       } 
+           .screenshotsBox,.stepsBox{
+            width:100%; 
+            padding:0 0.1rem 0;      
+            .screenshots,.stepsshots{
+                display:block;
+                padding:0.1rem 0;
+                width:100%;
+                overflow:hidden;
+//              @include flex(row,space-between,center);
+//              flex-wrap: wrap;
+                li{
+                    float:left;
+                    width:1.1rem;
+                    height:1.1rem;
+                    margin-right:0.125rem;
+                    border:1px solid #f7f7fa;
+                    margin-bottom:0.1rem;
+                    background:url(../img/instrRebate2.png) no-repeat center center;
+                    background-size:100% auto;
+                    box-sizing:border-box;
+                }
+                li:nth-child(3n){
+                    margin-right:0;
+                }
+            }
+        }    
+   }
+   //开始任务
+   .task{
+       padding:0 0.15rem 0.1rem;
+       text-align: center;
+       .start,.submit{
+           width:100%;
+           height:0.5rem;
+           margin:0.1rem 0;
+           border-radius:5px;
+           border:1px solid $themeColor;
+           @include font(0.16rem,500,null,0.5rem,$themeColor);
+           background:#fedcdc;
+       }
+       .submit{
+           color:#B8B8B8;
+           background:#E6E6E6;
+           border:none;
+       }
+       .submitAc{
+           color:white;
+           background:$themeColor;
+           border:none;
+       }
+   }
+}
+#maskImg{
+    display:none;
+    position:fixed;
+    left:0;
+    top:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.7);
+    @include flex(row,center,center);
+    .close{
+        position:absolute;
+        right:0.1rem;
+        top:0.1rem;
+        width:0.2rem;
+        height:0.2rem;
+        background:url(../img/close.png) no-repeat center center;
+        background-size:cover;
+    }
+    .swiper-container{
+        width:100%;
+        height:80%;
+        .swiper-wrapper{
+            .swiper-slide{
+                @include flex(row,center,center);
+                img{
+                    display:block;
+                    width:3rem;
+                }
+            }
+        }
+    }
+    .swiper-container-horizontal>.swiper-pagination-bullets, .swiper-pagination-custom, .swiper-pagination-fraction{
+        color:white;
+    }
+}

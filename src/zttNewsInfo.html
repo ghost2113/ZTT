@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>新闻详情页</title>
+    <style type="text/css">
+    	@charset "UTF-8";
+    	* {
+		  margin: 0;
+		  padding: 0;
+		  outline: none;
+		} 
+		html,
+		body {
+			width: 100%;
+			font-family: Hiragino Sans GB, Arial, Helvetica, "黑体", sans-serif;
+			-webkit-touch-callout: inherit;
+			-webkit-user-select: auto;
+			background-color: #fff;
+			font-size: 14px;
+			position: relative;
+			width: 100%;
+			/*height: 100%;*/
+			font-size: 14px;
+			overflow: auto;
+			-webkit-overflow-scrolling:touch;
+		}
+		#main {
+			padding: 0.1rem 0.15rem 0.2rem;
+			box-sizing: border-box;
+			overflow: hidden;
+			-webkit-overflow-scrolling:touch;
+		}		
+		#main .title {
+			font-size: 22px;
+			color: #000;
+			line-height: 1.4;
+			display: -webkit-box;
+			-webkit-box-orient: vertical;
+			-webkit-line-clamp: 2;
+			overflow: hidden;
+			text-align: justify;
+			margin-bottom:10px;
+			box-sizing:content-box;
+			-webkit-box-sizing: content-box;
+		}
+		
+		#main .newsInfo {
+			border-top: 1px solid rgb(231, 231, 235);
+			font-size: 14px;
+			line-height: 38px;
+			color: #999999;
+		}
+		
+		#main .newsInfo span:nth-child(2) {
+			padding-left: 10px;
+		}
+		#main .newsCon section{
+			display: block;
+			width: auto !important;
+			max-width: 100% !important;
+		}
+		#main .newsCon p{
+			display: block;
+			width: auto !important;
+			max-width: 100% !important;
+		}
+	/*	#main .newsCon span{
+			display: block;
+			width: auto !important;
+			max-width: 100% !important;
+		}*/
+/*		#main .newsCon p {
+			text-align: justify;
+		}*/
+		
+		#main .newsCon img {
+			display: block;
+			width: auto !important;
+			max-width: 100% !important;
+			margin: 10px auto;
+		}    	
+    </style>
+</head>
+<body>
+	<section id="main">				
+		<article>
+			<h2 class="title">新闻标题</h2>
+			<div class="newsInfo">
+				<span class="source">早头条</span>
+				<span class="time">十二小时前</span>
+			</div>
+			<section class="newsCon" id="article">
+			</section>
+	</section>
+</body>
+	<script type="text/javascript" src="./js/rem.js"></script>
+	<script type="text/javascript" src="./js/loading.js"></script>
+	<script type="text/javascript" src="./js/zepto.js"></script>
+	<script type="text/javascript" src="js/fastclick.js"></script>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script type="text/javascript">
+		(function(doc, win) {
+			var docEl = doc.documentElement,
+				resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+				recalc = function() {
+					var clientWidth = docEl.clientWidth;
+					if(!clientWidth) return;
+					if(clientWidth >= 640) {
+						/*docEl.style.fontSize = '100px';*/
+						docEl.style.fontSize = 100 * (clientWidth / 375) + 'px';
+					} else {
+						docEl.style.fontSize = 100 * (clientWidth / 375) + 'px';
+					}
+				};
+			if(!doc.addEventListener) return;
+			win.addEventListener(resizeEvt, recalc, false);
+			doc.addEventListener('DOMContentLoaded', recalc, false);
+		})(document, window);		
+	</script>
+	<script>
+		var infoId = getUrlParams("infoId");
+		var timeArray = ["一小时前","两小时前","三小时前","四小时前","五小时前","六小时前","七小时前","八小时前","九小时前","十个小时前","十个小时前","十一个小时前","十二个小时前","十三个小时前","十四个小时前","十五个小时前","十六个小时前","十七个小时前","十八个小时前","十九个小时前","二十个小时前","二十一个小时前",
+			"一天前","两天前","三天前","四天前","五天前","六天前","七天前","八天前","九天前","十天前","十一天前","十二天前","十三天前"];
+		var index =parseInt(Math.random()*33+1);
+		$(".time").html(`${timeArray[index]}`);
+		axios({
+		  url: 'getHotInfos',
+		  method: 'get', // 默认是 get
+		  baseURL: ajaxUrl,
+		  params:{
+		  	infoId:infoId
+		  }
+		})
+		.then(function(res){
+			console.log(res.data.data);
+			var _html = res.data.data.contents,
+				source = res.data.data.source,
+				title = res.data.data.title;
+			$("#article").html(`${_html}`);
+			$(".source").html(`${source}`);	
+			$(".title").html(`${title}`);
+			document.title = title;
+			$("#activity-name").remove();
+			/*console.log($("#main").height());*/
+		})
+		.catch(function(error){
+			console.log(error);
+		});
+		function getUrlParams(name) { 
+		    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i"); //定义正则表达式 
+		    var r = window.location.search.substr(1).match(reg);  
+		    if (r != null) return unescape(r[2]); 
+		    return null; 
+		};	
+	</script>
+</html>

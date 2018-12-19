@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>阅读新闻</title>
+    <link rel="stylesheet" href="./css/reset.css" />
+    <link rel="stylesheet" href="./css/common.css" />
+    <link rel="stylesheet" href="./css/mfNews.css" />
+</head>
+<body>
+	<!--背景图-->
+	<div class="actiBg"><img src="./img/nfNewsBg.png" alt="" /></div>
+	<section id="main" style="opacity:0;filter:alpha(opacity=0);">		
+		<div class="nfNewsText1">
+			<img src="./img/nfNewsText1.png" alt="" />
+		</div>
+		<div class="nfNewsText2">
+			<img src="./img/nfNewsMan.png" alt="" />
+			<div class="nfNewsTime" style="width:100%;height:0.22rem;text-align:center;line-height:0.22rem;background:#feed4c;border-radius:0.11rem;">活动时间：7月1号—7月30号</div>
+		</div>		
+		<div class="nfNewsCon">
+			<img src="./img/nfNewsConBg.png" alt="" />
+			<p class="p1">每阅读一篇<span>新闻或视频</span>，即有机会获得<span>10金币奖励</span>10金币奖励，培养良好的阅读习惯，将百分百掉落金币</p>
+			<div class="border"></div>
+			<p class="p2">当天分享三篇以上文章，次日您可获得<span>30金币</span></p>
+			<div class="border"></div>
+			<p class="p3">看新闻时不要忘记写评论。成为优质评论，您可获得<span>200金币奖励</span></p>
+		</div>
+	</section>
+	<footer id="footer">
+		<a href="javascript:;" onclick="newsRead()"><img src="./img/nfNewsBtn.png" alt="" /></a>
+	</footer>
+</body>
+	<script type="text/javascript" src="./js/rem.js"></script>
+	<script type="text/javascript" src="./js/loading.js"></script>
+	<script type="text/javascript" src="./js/zepto.js"></script>
+	<script type="text/javascript" src="./js/fastclick.js"></script>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script type="text/javascript">
+		function newsRead(){ 
+	       var u = navigator.userAgent;
+	       var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+	       var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+	       if(isAndroid){
+	            /*alert('是否是Android：'+isAndroid);*/
+	           window.jsi.newsRead("ok");
+	       }else if(isiOS){
+	            /*alert('是否是iOS：'+isiOS);*/
+	           window.webkit.messageHandlers.newsRead.postMessage("ok");
+	       }
+		}	
+		/**
+		 * 完美解决safari、微信浏览器下拉回弹效果和上拉空白的bug
+		 * @param {Object} el 滑动元素
+		 */
+		var overscroll = function(el) {  
+		    el.addEventListener('touchstart', function() {  
+		        var top = el.scrollTop  
+		        ,totalScroll = el.scrollHeight  
+		        ,currentScroll = top + el.offsetHeight;  
+		        if(top === 0) {  
+		            el.scrollTop = 1;  
+		        }else if(currentScroll === totalScroll) {  
+		            el.scrollTop = top - 1;  
+		        }  
+		    });  
+		  
+		    el.addEventListener('touchmove', function(evt) {  
+		    if(el.offsetHeight < el.scrollHeight)  
+		        evt._isScroller = true;  
+		    });  
+		}  
+		          
+		overscroll(document.querySelector('#main'));  
+		document.body.addEventListener('touchmove', function(evt) {  
+		    if(!evt._isScroller) {  
+		        evt.preventDefault();  
+		    }  
+		});  
+
+	</script>
+</html>

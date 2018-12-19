@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>视频</title>
+    <link rel="stylesheet" href="./css/reset.css" />
+    <link rel="stylesheet" href="./css/video-js.css" /> 
+    <link rel="stylesheet" href="./css/newsShare.css" /> 
+    	<style>
+		.m {
+			width: 100%;
+			height: 200px;
+			margin-left: auto;
+			margin-right: auto;
+		}
+		</style>
+		
+</head>
+<body>
+	<div class="m" style="opacity:0;filter:alpha(opacity=0);">
+      <video id="my-video" class="video-js myVideo" controls preload="auto" poster="" data-setup="{}" webkit-playsinline="true" playsinline="true">
+        <source class="videoSrc" src="http://jq22com.qiniudn.com/jq22-sp.mp4" type="video/mp4">
+        <p class="vjs-no-js"> To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a> </p>
+      </video>
+      <script src="./js/video.min.js"></script> 
+	  <script src="https://vjs.zencdn.net/5.19/lang/zh-CN.js"></script>
+      <script type="text/javascript">
+			var myPlayer = videojs('my-video');
+			videojs("my-video").ready(function(){
+				var myPlayer = this;
+				/*myPlayer.play();*/				
+			});
+			  
+		</script> 
+    </div>
+	<div class="videoCon" style="opacity:0;filter:alpha(opacity=0);">
+		<p class="videoName">迪丽热巴《烈火如歌》如歌红衣娇俏惊艳 银雪白衣颠倒娇俏惊艳 银雪白衣颠倒娇俏惊艳 银雪白衣颠倒娇俏惊艳 银雪白衣颠</p>
+		<div class="videoInfo">
+			<span class="videoSource">优酷</span>
+			<span class="playCnt">164</span>次播放
+		</div>
+	</div>
+	<section id="main" style="opacity:0;filter:alpha(opacity=0);">				
+		<div class="title"><span></span>相关推荐</div>
+		<ul class="newsList">
+			<!--<a href="">
+			<li class="items">
+				<div class="leftCon">
+					<p>vivo X21屏幕指纹手机发布 鹿晗邀你一起解锁vivoivo X21屏幕指纹手机发布 鹿晗邀你一起解锁viv</p>
+					<div class="itemsInfor">
+						<span>新华社</span>
+						<span>刚刚</span>
+						<span>18909</span>阅读
+					</div>
+				</div>
+				<div class="rightImg">
+					<img src="./img/userPhoto.jpg" alt="" />
+				</div>
+			</li>
+			</a>-->
+		</ul>
+	</section>
+	<div class="shareLink" style="opacity:0;filter:alpha(opacity=0);">
+		<div class="icon"><span></span><span>头条TV</span></div>		
+		<span>看新闻赚零花钱</span>		
+		<a id="linkedME" href="https://lkme.cc/kMD/4WylgrVeK">打开</a>
+	</div>	
+</body>
+	<script type="text/javascript" src="./js/rem.js"></script>
+	<script type="text/javascript" src="./js/jquery-3.3.1.min.js"></script>
+	<script type="text/javascript" src="./js/fastclick.js"></script>
+	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+	<script>
+		//获取浏览器页面可见高度和宽度  
+        var _PageHeight = document.documentElement.clientHeight,  
+            _PageWidth = document.documentElement.clientWidth;  
+        //计算loading框距离顶部和左部的距离（loading框的宽度为215px，高度为61px）  
+        var _LoadingTop = _PageHeight > 61 ? (_PageHeight - 61) / 2 : 0,  
+            _LoadingLeft = _PageWidth > 215 ? (_PageWidth - 215) / 2 : 0;  
+        //在页面未加载完毕之前显示的loading Html自定义内容  
+        var _LoadingHtml = 
+        '<div id="loadingDiv" style="position:absolute;left:0;width:100%;height:' + _PageHeight + 'px;top:0;background:url(./img/details_loading.png) no-repeat center center;background-size:100% 100%;opacity:100;filter:alpha(opacity=100);z-index:10000;"></div>';
+        //呈现loading效果  
+        document.write(_LoadingHtml);  
+        //监听加载状态改变  
+        document.onreadystatechange = completeLoading;     
+        //加载状态为complete时移除loading效果  
+        function completeLoading() {  
+            if (document.readyState == "complete") {  
+                var loadingMask = document.getElementById('loadingDiv');  
+                loadingMask.parentNode.removeChild(loadingMask);  
+                $("#loadingDiv").remove();
+                $("#main").css({"opacity":100,"filter":"alpha(opacity=100)"});
+                $(".m").css({"opacity":100,"filter":"alpha(opacity=100)"});
+                $(".videoCon").css({"opacity":100,"filter":"alpha(opacity=100)"});
+                $(".shareLink").css({"opacity":100,"filter":"alpha(opacity=100)"});                
+            }  
+        }  
+		</script>
+	<script type="text/javascript">		
+			var videoUrl = window.location.href;
+			videoUrl = 						
+					"https://zhishun888.com/zttH5/videoShare.html?androidId=340A3AA0-20EB-4A5B-B253-1FB1EA16B278&appVersion=1.0.2&backdata=1&brand=apple&channel=iOS&domain=https://zhishun888.com/zaotoutiao-api-home-1.0.0/&extdata=eyJzdHJhdGVneSI6IjIuNi41MS40Ny5nb245MjQzNG96Y3AuOS5odjE5YS4xMy52bnlvdHguLjEuOGhsZ3JwaTZwcXozIiwiY2hhbm5lbF9pZCI6IjI0In0=&height=736&idIdfa=340A3AA0-20EB-4A5B-B253-1FB1EA16B278&idImei=xxxx&infoId=VK3kl08jPk64&invitation=UhgDVGYJSaz&ip=36.27.78.100&mac=00:db:df:87:5a:7d&model=iPhone&osType=2&osVersion=11.4.1&ot=1&packageName=com.zhishun.MorningLine&type=1&urls=video/list&userAgent=Mozilla/5.0 (iPhone; CPU iPhone OS 11_4_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15G77&userId=95&vendor=apple&videoOsType=ios&width=414&****zTitle=CF手游：挑战了一下，没想到龙啸的特殊技这么好用呀&****zlink=";//ios
+/*			videoUrl = 						
+			"https://zhishun520.com/zttH5/videoShare.html?androidId=9e9aa4d7678b5cb8&appVersion=1.2.3&brand=android&channel=toutiaotv&domain=https://zhishun520.com/zaotoutiao-api-home-1.0.0/&extdata=eyJzdHJhdGVneSI6IjIuNi41MS44LmdvNXlzMGpocmcyei45LjF3d20uMjUuMWR0aHV5NC4uMjAwLjRscXgwIiwiY2hhbm5lbF9pZCI6IjI0In0=&height=1136&id=YoReddlkGN2K&idImei=867955033270114&infoId=YoReddlkGN2K&invitation=1h5QwjEn7A2&ip=49,50,52,46,49,54,48,46,50,49,56,46,51,50&mac=02:00:00:00:00:00&model=OS105&osType=1&osVersion=1.1.2&ot=3&packageName=com.muki.topline&page=1&type=1&urls=information/list&userAgent=Mozilla/5.0%20(Linux;%20Android%207.1.1;%20OS105%20Build/NMF26X;%20wv)%20AppleWebKit/537.36%20(KHTML,%20like%20Gecko)%20Version/4.0%20Chrome/53.0.2785.97%20Mobile%20Safari/537.36&userId=929&vendor=SMARTISAN&videoOsType=android&width=640&z****zTitle=%E4%BA%8C%E5%93%88%E5%8F%88%E5%BC%80%E5%A7%8B%E6%8B%86%E7%AE%B1%E5%AD%90%E4%BA%86%EF%BC%8C%E4%BD%A0%E4%BB%AC%E8%B0%81%E5%AE%B6%E9%9C%80%E8%A6%81%E6%8B%86%E8%BF%81%EF%BC%8C%E6%88%91%E8%AE%A9%E6%88%91%E4%BB%AC%E5%AE%B6%E4%BA%8C%E5%93%88%E5%B8%AE%E4%BD%A0&z****zlink=&z****znewsUrl=http://p6.qhimg.com/video/568_320_70/t0180aecdbe100b5512.webp";//android	*/	
+			var urlResult = decodeURI(videoUrl).split("****");
+			var urlPara = urlResult[0].split("?")[1];
+			/**
+			 * 获取Url地址中userId参数   userID
+			 */
+			//console.log("参数",urlPara);
+			function getUrlParams(name) {  
+			    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i"); //定义正则表达式 
+			    var r = urlPara.substr(urlPara.indexOf("?")+1).match(reg);   
+			    if (r != null) return unescape(r[2]); 
+			    return null; 
+			};			
+			/**
+			 *   @param    
+			 *   device:设备名称（0为安卓，1为iOS，2为PC）;
+			     userId:用户ID;
+			     packageName：app包名；
+			     appVersion：app版本号；
+			     idIdfa：ios为idfa;
+			     idImei: android为imei;
+			     height: 屏幕的物理高度，以像素为单位；
+			     width：屏幕的物理宽度，以像素为单位；
+			     brand：设备品牌；
+			     model：设备型号；
+			     osVersion：设备操作系统版本号，例如3.1.2，需要三位数；
+			     osType: 操作系统类型 1.ANDROID 2.IOS 3.WP；
+			     type: 设备网络环境 1.WIFI 2.UNKNOWN 3.2G 4.3G 5.4G；
+			     ip: 设备当前ip；
+			     domain：站点主域；
+			     urls: 当前页面；
+			     userAgent：浏览器的UA			     
+			     link:深度链接
+			 */
+			var videoOsType = getUrlParams("videoOsType");
+			var device = getUrlParams("device");
+			var userId = getUrlParams("userId");
+			var extdata = getUrlParams("extdata");
+			var packageName = getUrlParams("packageName");
+			var appVersion = getUrlParams("appVersion");
+			var page = getUrlParams("page");
+			var idIdfa = getUrlParams("idIdfa");
+			var idImei = getUrlParams("idImei");
+			var height = getUrlParams("height");
+			var width = getUrlParams("width");
+			var brand = getUrlParams("brand");
+			var model = getUrlParams("model");
+			var osVersion = getUrlParams("osVersion");
+			var osType = getUrlParams("osType");
+			var type = getUrlParams("type");
+			var ip = getUrlParams("ip");
+			var domain = getUrlParams("domain");
+			var urls = getUrlParams("urls");
+			var userAgent = navigator.userAgent;
+			var id = getUrlParams("infoId");//详情
+			var title = urlResult[1].split("zTitle=")[1];//标题
+			var channel = getUrlParams("channel");//深度链接渠道
+			var androidid = getUrlParams("androidid");//标题
+			var mac = getUrlParams("mac");
+			var ot = getUrlParams("ot");
+			var vendor = getUrlParams("vendor");
+			var invitation = getUrlParams("invitation");//标题
+			console.log('传递参数',{
+				"userId":userId,
+				"id":id,
+			    "extdata":extdata,
+			    "page":page,			     
+			     "packageName":packageName,
+			     "appVersion":appVersion,
+			     "idIdfa":idIdfa,
+			     "idImei": idImei, 
+			     "height": height,
+			     "width":width,
+			     "brand":brand,
+			     "model":model,
+			     "osVersion":osVersion,
+			     "osType": osType,
+			     "type": type, 
+			     "ip": ip,
+			     "domain":domain,
+			     "urls": urls,
+			     "userAgent":userAgent,
+			     "title":title,
+			     "channel":channel,
+			     "invitation":invitation,
+			     "androidid":androidid,
+			     "mac":mac,
+			     "vendor":vendor,
+			     "ot":ot,
+			  });
+			/**
+			 * 新闻标题
+			*/
+			document.title = title;
+		 	/**
+		    * 视频链接
+		    */
+	   		console.log("视频详情链接参数",{"userId":userId,
+	  		"osType":osType,
+	    	"id":id,
+	    	"extdata":extdata,
+	    	"ip":ip})
+		   axios({	
+			  url: '/video/datil',
+			  method: 'get', // 默认是 get
+			  baseURL: ajaxUrl,
+			  params: {
+			  	userId:userId,
+			  	osType:osType,
+			    id:id,
+			    extdata:extdata,
+			    ip:ip
+			  }
+			})
+			.then(function(res){
+				console.log("视频详情链接",res);
+				//视频信息
+				var item = res.data.data;
+				//$(".vjs-poster").css("background-image","url("+item.url+")");
+				$(".vjs-tech").attr("src",item.cdnUrl.replace("http://","https://"));
+				$(".videoName").html(item.title);
+				$(".videoSource").html(item.author);
+				$(".playCnt").html(item.playCnt?item.playCnt:0);
+				document.title = item.title;															
+			})
+			.catch(function(error){
+				console.log(error);
+			});
+			var uploadReVideo = function(){
+			   var u = navigator.userAgent;
+		       var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+		       var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+		       if(isAndroid){	
+		       		videoOsType = "android";
+		       		osType = "1";
+		       		idImei = "864594037502421";
+		       		idIdfa = null;
+		       }else if(isiOS){
+		       		videoOsType = "ios";
+		       		osType = "2";
+		       		idImei = "xxxx";
+		       		idIdfa = "340A3AA0-20EB-4A5B-B253-1FB1EA16B278";
+		       }	
+		       console.log("相关推荐参数",{
+				 "userId":userId,
+				     "videoOsType":videoOsType,
+				     "id":id,
+				     "extdata":extdata,
+				     "page":1,
+				     "packageName":packageName,
+				     "appVersion":appVersion,
+				     "idIdfa":idIdfa,
+				     "idImei": idImei, 
+				     "height": height,
+				     "width":width,
+				     "brand":brand,
+				     "model":model,
+				     "osVersion":osVersion,//设备操作系统版本号，例如3.1.2，需要三位数；
+				     "osType": osType, //1.ANDROID 2.IOS 3.WP；
+				     "type": type, //1.WIFI 2.UNKNOWN 3.2G 4.3G 5.4G；
+				     "ip": ip,//设备当前ip；
+				     "domain":domain,//站点主域；
+				     "urls": urls,//当前页面；
+				     "userAgent":userAgent,//浏览器的UA
+				     "androidid":androidid,
+				     "mac":mac,
+				     "vendor":vendor,
+				     "ot":ot
+			  });
+				axios({
+				  url: '/video/related',
+				  method: 'get', // 默认是 get
+				  baseURL: ajaxUrl,
+				  params: {
+				  	 userId:userId,
+				     videoOsType:videoOsType,
+				     id:id,
+				     extdata:extdata,
+				     page:1,
+				     packageName:packageName,
+				     appVersion:appVersion,
+				     idIdfa:idIdfa,
+				     idImei: idImei, 
+				     height: height,
+				     width:width,
+				     brand:brand,
+				     model:model,
+				     osVersion:osVersion,//设备操作系统版本号，例如3.1.2，需要三位数；
+				     osType: osType, //1.ANDROID 2.IOS 3.WP；
+				     type: type, //1.WIFI 2.UNKNOWN 3.2G 4.3G 5.4G；
+				     ip: ip,//设备当前ip；
+				     domain:domain,//站点主域；
+				     urls: urls,//当前页面；
+				     userAgent:userAgent,//浏览器的UA
+				     androidid:androidid,
+				     mac:mac,
+				     vendor:vendor,
+				     ot:ot
+				  }
+				  })
+				.then(function(res){
+					/*alert("appVersion",appVersion);*/
+				  	console.log("相关视频",res);
+				  	var _html = "";	
+				  	console.log(res.data.data);
+				  	res.data.data.forEach(function(item,index){
+				  		var timeDiff = new Date() - new Date(item.obj.createDate).getTime();
+				  		if(item.type==0){
+				  			var time1 = new Date().getTime();
+				  			var time2 = getTs(item.obj.createDate);
+				  			var timeDiff = time1-time2;
+				  			var playCnt;
+				  			console.log(item);
+				  			if(item.obj.playCnt.length>5||item.obj.playCnt.length==5){
+				  				playCnt = item.obj.playCnt.substr(0,item.obj.playCnt.length-4)+"万";
+				  			}else{
+				  				playCnt = item.obj.playCnt;
+				  			}
+				  			_html += 
+				  			'<a href="#" onclick="playVideo('+"'"+item.obj.id+"','"+item.obj.extdata+"'"+')">'
+								+'<li class="items">'
+									+'<div class="leftCon">'
+										+'<p>'+item.obj.title+'</p>'
+										+'<div class="itemsInfor">'
+											+'<span>'+item.obj.author+'</span>'
+											+'<span>'+countdown(timeDiff)+'</span>'
+											+'<span>'+playCnt+'</span>阅读'
+										+'</div>'
+									+'</div>'
+									+'<div class="rightImg">'
+										+'<img src="'+item.obj.url+'" alt="" />'
+									+'</div>'
+								+'</li>'
+							+'</a>';
+				  		}else if(item.type == 2){
+				  			console.log("广告",index);
+				  			_html += 
+				  			'<a href="'+ item.obj.cUrl+'">'
+						  		+'<li class="items">'
+									+'<div class="leftCon">'
+										+'<p>'+item.obj.title+'</p>'
+										+'<div class="itemsInfor">'
+											+'<span>广告</span>'								
+										+'</div>'
+									+'</div>'
+									+'<div class="rightImg">'
+										+'<img src="'+item.obj.url+'" alt="" />'
+									+'</div>'
+								+'</li>'
+							+'</a>';
+				  		}					
+				  	})		
+				  	/*console.log("_html渲染内容",_html);*/
+				  	//渲染相关推荐
+				  	$(".newsList").eq(0).html(_html);
+				 })
+				.catch(function(error){
+					console.log(error);
+				});
+			};
+			uploadReVideo();
+			/**
+			 * 相关推荐获取视频地址
+			 */
+			function playVideo(idRe,extdataRe){
+				var videoReOsType;
+				switch(osType){
+					case "1" : 
+					videoReOsType = "android";
+					break;
+					case "2" : 
+					videoReOsType = "ios";
+					break;
+					case "3" : 
+					videoReOsType = "pc";
+					break;
+					default:
+					break;
+				}
+				console.log({
+					"userId":userId,
+				  	"os_type":videoReOsType,
+				    "id":idRe,
+				    "extdata":extdataRe,
+				    "ip":ip
+				});
+				axios({	
+				  url: '/video/datil',
+				  method: 'get', // 默认是 get
+				  baseURL: ajaxUrl,
+				  params: {
+				  	userId:userId,
+				  	osType:videoReOsType,
+				    id:idRe,
+				    extdata:extdataRe,
+				    ip:ip
+				  }
+				})
+				.then(function(res){
+					console.log("相关视频详情链接",res);
+					//视频信息
+					var item = res.data.data;
+					$(".vjs-poster").css("background-image","url("+item.url+")");
+					$(".vjs-tech").attr("src",item.cdnUrl);
+					$(".videoName").html(item.title);
+					$(".videoSource").html(item.author);
+					$(".playCnt").html(item.playCnt?item.playCnt:0);
+					document.title = item.title;															
+					uploadReVideo();
+				})
+				.catch(function(error){
+					console.log(error);
+				});
+			}
+			/**
+			 * 时间计时
+			 */
+			function countdown(leftTime){				
+				var d,h,m,s; 
+				var showTime;
+                if(leftTime>=0){  
+	                 d = Math.floor(leftTime/1000/60/60/24);  
+	                 h = Math.floor(leftTime/1000/60/60%24);  
+	                 m = Math.floor(leftTime/1000/60%60);  
+	                 s = Math.floor(leftTime/1000%60);                     
+	            }  
+/*	            //将倒计时赋值到div中  				
+				console.log(`${h}:${m}:${s}`);*/
+				if(m!=0&&h===0){
+					if(m=="undefiend"){showTime = "刚刚";}
+					showTime = m+"分钟前";
+				}else if(m===0){
+					if(s=="undefiend"){showTime = "刚刚";}
+					showTime = s+"秒前";
+				}else if(h!=0){	
+					if(h=="undefiend"){showTime = "刚刚";}
+					showTime = h+"小时前";
+				}
+				return showTime;
+				/*console.log(showTime);*/
+			};
+						/**
+			 * 获取时间戳兼容问题
+			 */
+			function getTs(time){  
+			    var arr = time.split(/[- :]/),  
+			    _date = new Date(arr[0], arr[1]-1, arr[2], arr[3], arr[4], arr[5]),  
+			    timeStr = Date.parse(_date)  
+			    return timeStr  
+			}  
+	</script>
+</html>
