@@ -6,13 +6,12 @@
   "jquery-3.3.1.min.js": "jquery-3.3.1.min.js?v=3b65908efe",
   "jquery.form.js": "jquery.form.js?v=0c8ef01424",
   "loading.js": "loading.js?v=0df1c4e715",
-  "myDisc.js": "myDisc.js?v=85b0e46498",
-  "nfSign.js": "nfSign.js?v=fcb3d7da9a",
+  "myDisc.js": "myDisc.js?v=6f37bde4de",
+  "nfSign.js": "nfSign.js?v=3850b223e9",
   "qrcode.min.js": "qrcode.min.js?v=203792a97b",
   "rem.js": "rem.js?v=eacc5bee76",
   "swiper-4.2.0.min.js": "swiper-4.2.0.min.js?v=52ee483081",
   "video.min.js": "video.min.js?v=8b212f9c36",
-  "vue.min.js": "vue.min.js?v=2bfd1bbfa3",
   "zepto.js": "zepto.js?v=47a3e88eef",
   "zh-CN.js": "zh-CN.js?v=b0d4535648"
 }

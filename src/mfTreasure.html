@@ -84,7 +84,6 @@
 			//请求开启宝箱信息
 			var _handle = true;//是否可以开启宝箱
 			var nextOpen;
-			ajaxUrl = urlTest;
 			axios.get(ajaxUrl+"/open/treasure?userId="+userID+"&isSubmit=0")
 				.then(function(response){
 					var memberType = response.data.memberType;

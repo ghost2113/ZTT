@@ -1,6 +1,6 @@
   var channel = getUrlParams("channel"); //深度链接渠道
   var invitation = getUrlParams("invitation"); //标题
-  linkedme.init("235d6842193c1bfb34204dd2ee7a3585", {
+  linkedme.init("ccd8c20e25692f3e4de15fe078c784c3", {
   	type: "live"
   }, null);
   var data = {};
@@ -9,7 +9,7 @@
   data.stage = "阶段名称"; // 自定义深度链接阶段，多个用逗号分隔，【可选】
   data.channel = "渠道名称"; // 自定义深度链接渠道，多个用逗号分隔，【可选】
   data.tags = "标签名称"; // 自定义深度链接标签，多个用逗号分隔，【可选】
-  data.ios_custom_url = "http://www.pgyer.com/Headline"; // 自定义iOS平台下App的下载地址，如果是AppStore的下载地址可以不用填写，需填写http或https【可选】
+  data.ios_custom_url = ""; // 自定义iOS平台下App的下载地址，如果是AppStore的下载地址可以不用填写，需填写http或https【可选】
   data.ios_direct_open = "true"; //未安装情况下，设置为true为直接打开ios_custom_url，默认为false【可选】
   data.android_custom_url = ""; // 自定义安卓平台下App的下载地址，需填写http或https【可选】
   data.android_direct_open = ""; //设置为true，所有情况下跳转android_custom_url，默认为false【可选】

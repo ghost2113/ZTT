@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>春风十里不如红包送你，下载抢先领取5元现金</title>
+        <link rel="icon" href="./static/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="./css/reset.css" />
     <link rel="stylesheet" href="./css/common.css" />
     <link rel="stylesheet" href="./css/shareH5.css" />
@@ -89,11 +90,13 @@
 			<a id="dlApp" href="#"></a>
 		</div>
 	</section>
-	<script src="https://s19.cnzz.com/z_stat.php?id=1274057224&web_id=1274057224" language="JavaScript"></script>
-	<script type="text/javascript" src="./js/rem.js"></script>
+	<div style="display:none;">
+		<script src="https://s19.cnzz.com/z_stat.php?id=1274057224&web_id=1274057224" language="JavaScript"></script>
+	</div>	
+	<script type="text/javascript" src="./static/fastclick.js"></script>
+	<script type="text/javascript" src="./static/common.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/zepto/1.2.0/zepto.min.js"></script>
 	<script type="text/javascript" src="./js/loading.js"></script>
-	<script type="text/javascript" src="./js/zepto.js"></script>
-	<script type="text/javascript" src="./js/fastclick.js"></script>
 	<script>
 		window.onload=function(){
 			/**
@@ -118,33 +121,7 @@
 			    autoplay:{
 			    	delay:3000
 			    },
-			})        
-			/**
-			 * 完美解决safari、微信浏览器下拉回弹效果和上拉空白的bug
-			 * @param {Object} el 滑动元素
-			 */
-			var overscroll = function(el) {  
-			    el.addEventListener('touchstart', function() {  
-			        var top = el.scrollTop  
-			        ,totalScroll = el.scrollHeight  
-			        ,currentScroll = top + el.offsetHeight;  
-			        if(top === 0) {  
-			            el.scrollTop = 1;  
-			        }else if(currentScroll === totalScroll) {  
-			            el.scrollTop = top - 1;  
-			        }  
-			    });  			  
-			    el.addEventListener('touchmove', function(evt) {  
-			    if(el.offsetHeight < el.scrollHeight)  
-			        evt._isScroller = true;  
-			    });  
-			}  			          
-			overscroll(document.querySelector('#main'));  
-			document.body.addEventListener('touchmove', function(evt) {  
-			    if(!evt._isScroller) {  
-			        evt.preventDefault();  
-			    }  
-			});  
+			})         
 		}
 	</script>
 	<script src="https://static.lkme.cc/linkedme.min.js" ></script>

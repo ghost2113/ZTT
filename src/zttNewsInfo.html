@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>新闻详情页</title>
+            <link rel="icon" href="./static/favicon.ico" type="image/x-icon">
     <style type="text/css">
     	@charset "UTF-8";
     	* {
@@ -95,30 +96,11 @@
 			</section>
 	</section>
 </body>
-	<script type="text/javascript" src="./js/rem.js"></script>
-	<script type="text/javascript" src="./js/loading.js"></script>
+	<script type="text/javascript" src="./static/fastclick.js"></script>
+	<script type="text/javascript" src="./static/common.js"></script>
 	<script type="text/javascript" src="./js/zepto.js"></script>
-	<script type="text/javascript" src="js/fastclick.js"></script>
+	<script type="text/javascript" src="./js/loading.js"></script>
 	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-	<script type="text/javascript">
-		(function(doc, win) {
-			var docEl = doc.documentElement,
-				resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
-				recalc = function() {
-					var clientWidth = docEl.clientWidth;
-					if(!clientWidth) return;
-					if(clientWidth >= 640) {
-						/*docEl.style.fontSize = '100px';*/
-						docEl.style.fontSize = 100 * (clientWidth / 375) + 'px';
-					} else {
-						docEl.style.fontSize = 100 * (clientWidth / 375) + 'px';
-					}
-				};
-			if(!doc.addEventListener) return;
-			win.addEventListener(resizeEvt, recalc, false);
-			doc.addEventListener('DOMContentLoaded', recalc, false);
-		})(document, window);		
-	</script>
 	<script>
 		var infoId = getUrlParams("infoId");
 		var timeArray = ["一小时前","两小时前","三小时前","四小时前","五小时前","六小时前","七小时前","八小时前","九小时前","十个小时前","十个小时前","十一个小时前","十二个小时前","十三个小时前","十四个小时前","十五个小时前","十六个小时前","十七个小时前","十八个小时前","十九个小时前","二十个小时前","二十一个小时前",

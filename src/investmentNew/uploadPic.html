@@ -51,15 +51,12 @@
 	</body>
 	<script type="text/javascript" src="../js/jquery-3.3.1.min.js"></script>
 	<script type="text/javascript" src="../js/jquery.form.js"></script>
-	<script type="text/javascript" src="../js/rem.js"></script>
+	<script type="text/javascript" src="../static/fastclick.js"></script>
+	<script type="text/javascript" src="../static/common.js"></script>
 	<script type="text/javascript" src="../js/loading.js"></script>
-	<script type="text/javascript" src="../js/fastclick.js"></script>
 	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 	<script src="../static/js/swiper-4.2.6.min.js"></script>
 	<script>
-		window.onload = function() {
-			FastClick.attach(document.body);
-		}
 		var userID = getUrlParams("userId"); //用户userID
 		var id = getUrlParams("id"); //任务id
 		var instr = getUrlParams("instr"); //截图说明	

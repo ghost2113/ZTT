@@ -9,8 +9,9 @@ var gulp = require('gulp'),
   	rev = require('gulp-rev'),    
  	revCollector = require('gulp-rev-collector'),
     sass = require('gulp-sass'),
+    //建立服务器跨域
     connect = require('gulp-connect'),
-    Reproxy = require("gulp-connect-reproxy");
+    proxy = require('http-proxy-middleware');
 //压缩html文件
 gulp.task('html', ['img','css','script'],function () {
     var options = {
@@ -77,6 +78,10 @@ gulp.task('newTask', function() {
 	return gulp.src('./src/newTask/**/*')
 		.pipe(gulp.dest('./dist/newTask/'))
 });
+gulp.task('turnplate', function() {
+	return gulp.src('./src/turnplate/**/*')
+		.pipe(gulp.dest('./dist/turnplate/'))
+});
 //gulp.task('investmentNew', function() {
 //	return gulp.src('./src/investmentNew/**/*')
 //		.pipe(gulp.dest('./dist/investmentNew/'))
@@ -91,9 +96,10 @@ gulp.task('watch', function() {
     //静态资源
     gulp.watch(['./src/static/**/*'], ['static']); 
     gulp.watch(['./src/newTask/**/*'], ['newTask']); 
+    gulp.watch(['./src/turnplate/**/*'], ['turnplate']);
 });
 /* 合并上述我的方法 监控并执行任务 */
-gulp.task('default',['script','html','img','sass','css','static','newTask','watch']);
+gulp.task('default',['script','html','img','sass','css','static','newTask','turnplate','watch']);
 
 
 
@@ -150,35 +156,35 @@ gulp.task('investment',['scriptRebate','htmlRebate','imgRebate','cssRebate']);
 
 
 //建立服务器
-//gulp.task('connect', function () {
-//  connect.server({
-//      root: './',
-//      livereload: true,
-//      port: 8010,
-//      middleware: function (connect, opt) {
-//          return [
-//              proxy('/zaotoutiao-api-home-1.0.0', {
-//                  target: 'https://zhishun888.com/',
-//                  changeOrigin:true,
-//                  pathRewrite: {
-//				        "^/zaotoutiao-api-home-1.0.0": "/"
-//				      }
-//              })
-//          ]
-//      }
-//  });
-//});
-//
-//gulp.task('watch', function () {
-//  gulp.watch(['./*.html'], ['html']);
-//
-//});
-//
-//gulp.task('html', function () {
-//  gulp.src('./*.html')
-//      .pipe(connect.reload());
-//});
-//
-//
-////运行Gulp时，默认的Task
-//gulp.task('server', ['connect', 'watch']);
+gulp.task('connect-server', function () {
+    connect.server({
+        root: './',
+        livereload: true,
+        port: 8010,
+        middleware: function (connect, opt) {
+            return [
+                proxy('/zaotoutiao-api-home-1.0.0', {
+                    target: 'https://zhishun888.com/',
+                    changeOrigin:true,
+                    pathRewrite: {
+				        "^/zaotoutiao-api-home-1.0.0": "/"
+				      }
+                })
+            ]
+        }
+    });
+});
+
+gulp.task('watch-server', function () {
+    gulp.watch(['./*.html'], ['html']);
+
+});
+
+gulp.task('html-server', function () {
+    gulp.src('./*.html')
+        .pipe(connect.reload());
+});
+
+
+//运行Gulp时，默认的Task
+gulp.task('server', ['connect-server', 'watch-server']);

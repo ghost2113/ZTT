@@ -66,7 +66,7 @@
          * 用户签到信息
          */
         axios.post(ajaxUrl+"/sign/in?userId="+userID+"&isSubmit=0").then(function(response){
-        	console.log(response.data);
+        	
     		if(response.data.msg!="今天还没签到"){
     			_handle=false;
     			qiandaoFun();

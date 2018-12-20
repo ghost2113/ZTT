@@ -1,9 +1,10 @@
 $(function(){
 //公共变量。
 var userID = TJY.getUrlParams("userId");
+var showCloseBtn = TJY.getUrlParams("showCloseBtn");
 var pageNumber = 0;//第几页。
 var droploader = null;
-console.log(userID)
+
 /** 有查询条件时，过滤数据方法  **/
 function droploaderForQuery() {
 	/****************设置查询条件，加到url中，此处省略。***************************/	
@@ -28,7 +29,7 @@ function droploadMethod() {
 	        domRefresh : '<div class="dropload-refresh">↑上拉加载更多</div>',
 	        domLoad    : '<div class="dropload-load"><span class="loading"></span>加载中...</div>',
 	       // domNoData  : '<div class="dropload-noData" style="display:none;"></div>'
-	      domNoData  : '<div class="dropload-noData">暂无数据</div>'
+	      domNoData  : '<div class="dropload-noData"></div>'
 	    },
         //上拉加载
         loadDownFn : function(me){
@@ -41,7 +42,6 @@ function droploadMethod() {
 function ajaxForContent(me) {
     var result = "";//拼接html
 	//ajax若需要封装，可自行封装，本例中为方便理解不进行封装。
-	ajaxUrl = urlTest;
 	$.ajax({
         url: ajaxUrl+"/apprentice/list",
         type:'GET',
@@ -54,7 +54,6 @@ function ajaxForContent(me) {
     	},
     	async:true,
         success: function(data){
-
         	var res = data.data;
 			var arrLen = res.length;
 			//如果有数据
@@ -90,7 +89,9 @@ function ajaxForContent(me) {
 					</div>
 					<div class="grade">${grade}</div>
 					<div class="num">${item.peopleNum}</div>
-					<div class="team"><a  href="./myDisc.html?userId=${item.userId}">查看团队</a></div>
+					${item.peopleNum==1?`<div class="team noTeam"><a  href="#">查看团队</a></div>`:
+						`<div class="team"><a  href="./myDisc.html?userId=${item.userId}&showCloseBtn=true">查看团队</a></div>`}
+					
 				</li>`;
 				})				
 			// 如果没有数据
@@ -112,5 +113,21 @@ function ajaxForContent(me) {
             me.resetload();
         }
     });
+}//原生webvbiew显示关闭按钮
+if(showCloseBtn=="true"){
+	showBtn("true");
+}else{
+	showBtn("false");
 }
+	/**是否显示多层页面关闭按钮**/
+	function showBtn(closeBtn){
+		console.log(closeBtn)
+		var u = navigator.userAgent;
+	   	var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Adr') > -1; //android终端
+	   	if(isAndroid){
+	        /*alert('是否是Android：'+isAndroid);*/
+	       window.jsi.showCloseBtn(closeBtn);
+	   	}
+	}
+
 })

@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <title>新手任务</title>
+    <link rel="icon" href="../static/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="../css/reset.css" />
     <link rel="stylesheet" href="./css/newTask.css"/>
 </head>
@@ -157,16 +158,13 @@
 		</div>
 	</section>
 </body>
-	<script type="text/javascript" src="../js/zepto.js"></script>
-	<script type="text/javascript" src="../js/rem.js"></script>
+	<script type="text/javascript" src="https://unpkg.com/zepto@1.2.0/dist/zepto.js"></script>
 	<script type="text/javascript" src="../js/loading.js"></script>
-	<script type="text/javascript" src="../js/fastclick.js"></script>
+	<script type="text/javascript" src="../static/fastclick.js"></script>
+	<script type="text/javascript" src="../static/common.js"></script>
 	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 	<script>
-		$(function() {  			
-		    FastClick.attach(document.body);		   
-		});  
-		var userID = getUrlParams("userId");
+		var userID = TJY.getUrlParams("userId");
 
 		/**
 		 * 新手任务状态
@@ -368,14 +366,7 @@
 	       	console.log(type);
 	           window.webkit.messageHandlers.withdrawal.postMessage(type);
 	       }
-	    }
-	    //获取Url地址中userId参数
-		function getUrlParams(name) {
-		    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i"); //定义正则表达式 
-		    var r = window.location.search.substr(1).match(reg);  
-		    if (r != null) return unescape(r[2]); 
-		    return null; 
-		};		
+	    }		
 		//关闭弹出框
 		$("#close").on("click",function(){							
 			$("#mask").hide();							

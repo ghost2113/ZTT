@@ -5,6 +5,7 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 		<title>高额返利</title>
+				<link rel="icon" href="../static/favicon.ico" type="image/x-icon">
 		<link rel="stylesheet" href="../css/reset.css" />
 		<link rel="stylesheet" href="../static/css/swiper-4.2.6.min.css" />
 		<link rel="stylesheet" href="./css/instrTask.css" />
@@ -63,10 +64,10 @@
 			<div class="swiper-pagination"></div>
 		</div>
 	</body>
-	<script type="text/javascript" src="../js/zepto.js"></script>
-	<script type="text/javascript" src="../js/rem.js"></script>
+	<script type="text/javascript" src="../static/fastclick.js"></script>
+	<script type="text/javascript" src="../static/common.js"></script>
+	<script type="text/javascript" src="https://unpkg.com/zepto@1.2.0/dist/zepto.js"></script>
 	<script type="text/javascript" src="../js/loading.js"></script>
-	<script type="text/javascript" src="../js/fastclick.js"></script>
 	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 	<script src="../static/js/swiper-4.2.6.min.js"></script>
 	<script>
@@ -200,7 +201,6 @@
 						"userId": userID
 					}));
 					browser(`${data.investUrl}`);
-					//window.location.href = `${data.investUrl}`;
 				}
 
 				function sub() {
