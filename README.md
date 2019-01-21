@@ -1,5 +1,4 @@
-### 返利超人
-#### 商品详情页在www.miaokun520.com/rebarecr/goodsInfo.html
+### 早头条
 
 #### 打包
 	gulp default
