@@ -167,7 +167,7 @@ gulp.task('connect-server', function () {
                     target: 'https://zhishun888.com/',
                     changeOrigin:true,
                     pathRewrite: {
-				        "^/zaotoutiao-api-home-1.0.0": "/"
+				        "^/zaotoutiao-api-home-1.0.0": "/zaotoutiao-api-home-1.0.0"
 				      }
                 })
             ]

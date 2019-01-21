@@ -1,3 +1,4 @@
+var ajaxUrl = "https://zhishun888.com/zaotoutiao-api-home-1.0.0";
 //获取Url地址中userId参数
 function getUrlParams(name) { 
     var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i"); //定义正则表达式 
@@ -6,7 +7,9 @@ function getUrlParams(name) {
     return null; 
 };
 /**
- * @param   userId 用户Id
+ * @param   
+ * userId 用户Id
+ * isUser true： 显示返利记录   false: 默认返利任务
  */
 var userID = getUrlParams("userId");
 var isUser = getUrlParams("isUser");
@@ -36,17 +39,30 @@ $.ajax({
 	url:ajaxUrl+"/user/get?userId="+userID,
 	type:"post",
 	async:false,
-	success:function(res){	
+	timeout:8000, 
+	success:function(res){
+		/**
+		 * 取消loading效果
+		 */
+		var loadingMask = document.getElementById('loadingDiv');
+		loadingMask.parentNode.removeChild(loadingMask);
+		var main = document.getElementById('main');
+		main.style.opacity = '100';
+		main.style.filter = 'alpha(opacity=100)';
+		$("#mask2").hide();
 		//是否绑定手机
 		if(res.data.telephone!==null) {isTelephone = true;};
-		//是否是会员
-		//会员类型：0（普通会员）、1（VIP）、2（金咖）、3（合伙人）
-		//console.log(res.data.memberType);
-		res.data.memberType==0?$("#mask").show():$("#mask").hide();
+		res.data.memberType==0?$("#mask").show():$("#mask").hide();			
 	},
-	error:function(error){
-		console.log(error);
-	}
+	error:function(jqXHR, textStatus, errorThrown){
+	    if(textStatus=="timeout"){
+	     $("#mask2").show();
+	     $("#text").html("请求超时!")
+	    }else{
+	       $("#mask2").show();
+	       $("#text").html("请求失败!")
+	    }
+	  }
 })	
 /**
  * 上拉加载

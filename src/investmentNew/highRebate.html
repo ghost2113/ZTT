@@ -3,35 +3,74 @@
 	<head>
 		<meta charset="utf-8">
 		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		 <meta name="format-detection" content="telephone=no,email=no,adress=no">
 		<title>高额返利</title>
 		<link rel="icon" href="../static/favicon.ico" type="image/x-icon">
-		<link rel="stylesheet" href="../css/reset.css" />
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.3.0/css/swiper.min.css">
-		<link rel="stylesheet" href="../static/drop/dropload.css" />
 		<link rel="stylesheet" href="./css/highRebate.css" />
-		<script type="text/javascript" src="./js/loading.js"></script>
+		<script>
+			(function(doc, win) {
+				var docEl = doc.documentElement,
+					resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+					recalc = function() {
+						var clientWidth = docEl.clientWidth;
+						if(!clientWidth) {
+							return
+						}
+						if(clientWidth >= 640) {
+							docEl.style.fontSize = 100 * (clientWidth / 375) + 'px'
+						} else {
+							docEl.style.fontSize = 100 * (clientWidth / 375) + 'px'
+						}
+					};
+				if(!doc.addEventListener) {
+					return
+				}
+				win.addEventListener(resizeEvt, recalc, false);
+				doc.addEventListener('DOMContentLoaded', recalc, false)
+			})(document, window);
+		</script>
 		<style>
 			.dropload-down {
 				background: rgb(247, 247, 250);
 			}
+			#mask2{
+			    z-index:1111;
+			    display:none;
+			    position:fixed;
+			    left:0;
+			    top:0;
+			    width:100%;
+			    height:100%;
+			    background:rgba(225,225,225,0.4);
+			       
+			}
+			#mask2  #text{
+		        position:absolute;
+		        left:0;
+		        top:0;
+		        right:0;
+		        bottom:0;
+		        margin:auto;
+		        padding:0 10px;
+		        width:100px;
+		        height:40px;
+		        line-height:40px;		
+		        background:rgba(0,0,0,.7);
+		        color:white;
+		        font-size:12px;
+		        text-align:center;
+		        border-radius:10px;
+		    }
 		</style>
 	</head>
 	<body>
+		<div id="loadingDiv" style="position:absolute;left:0;top:0;width:100%;height:100%;top:0;background:url(../img/details_loading.png) no-repeat center center;background-size:100% 100%;opacity:100;filter:alpha(opacity=100);z-index:1000;"></div>
 		<section id="main" style="opacity:0;filter:alpha(opacity=0);">
 			<ul class="rebate_tab">
 				<li class="tab rebate_tab_active">返利列表</li>
 				<li class="tab">返利记录</li>
 			</ul>
 			<div class="content">
-				<!--<div class="banner">
-					<img class="bannerImg" src="" alt="" />-->
-					<!--<div class="bannerTip">
-						<p class="p1">邀请好友奖励30%好友收益</p>
-						<p class="p2">(好友收益不变)</p>
-					</div>
-					<div class="disciple" onclick="disciple()">立即邀请好友</div>
-					<div class="rules"><img src="./img/rules.png" alt="" /></div>
-				</div>-->
 				<div class="list tabItem">
 					<!--轮播-->
 					<div class="swiper-container" style="display:none;">
@@ -153,8 +192,8 @@
 								<div class="reward">成功领取<span class="rewardd fontColor"></span></div>
 							</div>
 							<div class="swiper-slide">
-								<div class="head">*LJ*<!--<img src="../img/shareUser20.jpg" alt="" />--></div>
-								<div class="name"></div>
+								<div class="head"><!--<img src="../img/shareUser20.jpg" alt="" />--></div>
+								<div class="name">*LJ*</div>
 								<div class="task">完成<span class="taskName"></span></div>
 								<div class="reward">成功领取<span class="rewardd fontColor"></span></div>
 							</div>
@@ -210,9 +249,9 @@
 					</div>
 					<!---->
 					<div class="taskList">
-
-					</div>
-					
+						<div class="taskList">                        	
+                        	</div>
+					</div>					
 				</div>
 				<ul class="instruc tabItem">
 				</ul>
@@ -220,9 +259,8 @@
 					暂无返利任务
 				</div>
 			</div>
-
 		</section>
-		<div id="mask">
+		<div id="mask">					
 			<div id="con">
 				<div class="icon"></div>	
 				<p>您尚未获得领取任务的资格</br>
@@ -233,12 +271,12 @@
 				</div>
 			</div>
 		</div>
-	</body>
-	<script type="text/javascript" src="../static/fastclick.js"></script>
-	<script type="text/javascript" src="../static/common.js"></script>
-	<script type="text/javascript" src="https://unpkg.com/zepto@1.2.0/dist/zepto.js"></script>
-	<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+		<div id="mask2">
+			<div id="text">数据加载中...</div>
+		</div>
+	</body>	
+	<script type="text/javascript" src="https://unpkg.com/zepto@1.2.0/dist/zepto.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.3.0/js/swiper.min.js"></script>
-	<script type="text/javascript" src="../static/drop/dropload.js"></script>
-	<script type="text/javascript" src="./js/highRebate.js"></script>
+	<script type="text/javascript" src="../static/drop/dropload.min.js"></script>
+	<script type="text/javascript" src="./js/highRebate.js" async></script>
 </html>

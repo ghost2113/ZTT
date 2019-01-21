@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<meta name="format-detection" content="telephone=no,email=no,adress=no">
+		<title>早头条充值订单</title>
+		<link rel="icon" href="./static/favicon.ico" type="image/x-icon">
+		<link rel="stylesheet" href="./css/order.css" />
+		<script>
+			(function(doc, win) {
+				var docEl = doc.documentElement,
+					resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize',
+					recalc = function() {
+						var clientWidth = docEl.clientWidth;
+						if(!clientWidth) {
+							return
+						}
+						if(clientWidth >= 640) {
+							docEl.style.fontSize = 100 * (750 / 375) + 'px'
+						} else {
+							docEl.style.fontSize = 100 * (clientWidth / 375) + 'px'
+						}
+					};
+				if(!doc.addEventListener) {
+					return
+				}
+				win.addEventListener(resizeEvt, recalc, false);
+				doc.addEventListener('DOMContentLoaded', recalc, false)
+			})(document, window);
+		</script>
+	</head>
+
+	<body>
+		<div id="loadingDiv" style="position:absolute;left:0;top:0;width:100%;height:100%;top:0;background:url(./img/details_loading.png) no-repeat center center;background-size:100% 100%;opacity:100;filter:alpha(opacity=100);z-index:1000;"></div>
+		<section id="main" style="opacity:0;filter:alpha(opacity=0);">
+			<div class="order_num"><button class="goBack iconfont" onclick="home()">&#xe641;</button>&nbsp;累计充值人数:<span class="num">0</span></div>
+			<div class="search">
+				<input class="searchInfo" type="text" placeholder="输入用户昵称/手机号进行查询" />
+				<button class="searchBtn" onclick="search()">搜索</button>
+			</div>
+			<table id="content" border=1 cellpadding=5 cellspacing=5>
+				<thead>
+					<tr>
+						<th>昵称</th>
+						<th>手机号</th>
+						<th>充值金额</th>
+					</tr>
+				</thead>
+
+				<tbody class="renderDom">
+
+				</tbody>
+			</table>
+			<div class="noDataTip">数据为空</div>
+			<div class="footer">
+				<button class="last" onclick="last()">上一页</button>
+				<div><span class="pageNo">0</span>/<span class="total">0</span></div>
+				<button class="next" onclick="next()">下一页</button>
+			</div>
+		</section>
+		<div id="mask">
+			<div id="con">
+				<img src="./img/loading/loading7.gif" alt="" />
+				<span class='text'>加载中...</span>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="./static/fastclick.js"></script>
+	<script type="text/javascript" src="https://unpkg.com/zepto@1.2.0/dist/zepto.min.js"></script>
+	<script src="./js/order.js"></script>
+
+</html>

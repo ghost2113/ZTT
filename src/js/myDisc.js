@@ -62,16 +62,16 @@ function ajaxForContent(me) {
 				res.map((item,index)=>{
 					let grade;
 					switch (item.memberType){
-						case 1:
+						case 0:
 							grade = "普通";
 							break;
-						case 2:
+						case 1:
 							grade = "会员";
 							break;
-						case 3:
+						case 2:
 							grade = "金咖";
 								break;
-						case 0:
+						case 3:
 							grade = "合伙人";
 							break;
 						default:
